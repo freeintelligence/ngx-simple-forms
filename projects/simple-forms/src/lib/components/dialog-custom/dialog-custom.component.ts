@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SimpleControl } from '../../interfaces/simple-control.interface';
+import { CustomHeader } from '../../interfaces/custom-header.interface';
 
 export interface InputData {
-  title?: string;
+  header?: CustomHeader;
   message?: string;
   controls: { [key: string]: SimpleControl } | SimpleControl[];
 }
@@ -18,7 +19,6 @@ export class DialogCustomComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: InputData) { }
 
   ngOnInit(): void {
-    console.log('data', this.data);
   }
 
 }

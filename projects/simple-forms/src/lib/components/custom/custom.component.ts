@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SimpleControl } from '../../interfaces/simple-control.interface';
+import { CustomHeader } from '../../interfaces/custom-header.interface';
 
 @Component({
   selector: 'simple-forms-custom',
@@ -8,12 +9,14 @@ import { SimpleControl } from '../../interfaces/simple-control.interface';
 })
 export class CustomComponent implements OnInit {
 
-  @Input('header') header: any = {};
+  @Input('header') header: CustomHeader = {};
+  @Input('message') message: string;
   @Input('controls') controls: { [key: string]: SimpleControl } | SimpleControl[] = {};
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log('header', this.header);
   }
 
 }

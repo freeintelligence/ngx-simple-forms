@@ -1,1 +1,5 @@
-<h2>{{ header?.title }}</h2>
+<mat-toolbar *ngIf="header?.title" [color]="header?.color">
+  <span>{{ header?.title }}</span>
+</mat-toolbar>
+
+<p *ngIf="message">{{ message }}</p>
