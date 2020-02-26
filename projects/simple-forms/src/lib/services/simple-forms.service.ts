@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormComponent } from '../components/dialog-form/dialog-form.component';
+import { DialogCustomComponent } from '../components/dialog-custom/dialog-custom.component';
 import { DialogArguments } from '../interfaces/dialog-arguments.interface';
 
 @Injectable({
@@ -18,9 +18,9 @@ export class SimpleFormsService {
       width: typeof argumentsData.width === 'string' ? argumentsData.width : '332px',
       disableClose: typeof argumentsData.disableClose === 'boolean' ? argumentsData.disableClose : false,
       hasBackdrop: typeof argumentsData.hasBackdrop === 'boolean' ? argumentsData.hasBackdrop : true,
-    }
+    };
 
-    const dialog = this.dialog.open(DialogFormComponent, {
+    const dialog = this.dialog.open(DialogCustomComponent, {
       width: data.width,
       data: {
         title: data.title,
