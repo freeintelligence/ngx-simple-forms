@@ -1,0 +1,5 @@
+<mat-form-field [appearance]="field?.appearance ? field?.appearance : 'outline'" [style.width]="field?.width ? field?.width : (field?.control?.width ? field?.control?.width : '100%')">
+  <mat-label>{{ field?.label }}</mat-label>
+
+  <simple-forms-control [control]="field?.control"></simple-forms-control>
+</mat-form-field>

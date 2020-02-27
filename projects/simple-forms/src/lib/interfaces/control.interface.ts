@@ -1,4 +1,4 @@
-export interface SimpleControl {
+export interface Control {
   key: string;
   width?: string;
   placeholder: string;

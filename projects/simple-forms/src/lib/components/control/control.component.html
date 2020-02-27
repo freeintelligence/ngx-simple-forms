@@ -1,0 +1,15 @@
+<ng-container *ngIf="!control?.type || control?.type === 'input'">
+  <input matInput [type]="control?.typeInput?.type ? control?.typeInput?.type : 'text'">
+</ng-container>
+
+<ng-container *ngIf="control?.type === 'select'">
+  <mat-select [placeholder]="control?.placeholder" [multiple]="control?.typeSelect?.multiple">
+    <mat-option *ngFor="let option of control?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
+  </mat-select>
+</ng-container>
+
+<ng-container *ngIf="control?.type === 'date'">
+  <input matInput #date_input [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="control?.placeholder">
+  <mat-datepicker-toggle matSuffix [for]="date_picker" class="mat-datepicker-toggle-suffix"></mat-datepicker-toggle>
+  <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
+</ng-container>
