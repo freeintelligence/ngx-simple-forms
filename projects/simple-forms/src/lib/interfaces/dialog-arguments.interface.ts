@@ -1,10 +1,10 @@
-import { SimpleControl } from './simple-control.interface';
 import { CustomHeader } from './custom-header.interface';
+import { Field } from './field.interface';
 
 export interface DialogArguments {
   header?: CustomHeader;
   message?: string;
-  controls: { [key: string]: SimpleControl } | SimpleControl[];
+  fields: { [key: string]: Field } | Field[];
   width?: string;
   disableClose?: boolean;
   hasBackdrop?: boolean;

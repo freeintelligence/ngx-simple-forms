@@ -1,5 +1,19 @@
-<mat-form-field [appearance]="field?.appearance ? field?.appearance : 'outline'" [style.width]="field?.width ? field?.width : (field?.control?.width ? field?.control?.width : '100%')">
+<mat-form-field [appearance]="field?.appearance ? field?.appearance : 'outline'" [style.width]="field?.width ? field?.width : '100%'">
   <mat-label>{{ field?.label }}</mat-label>
 
-  <simple-forms-control [control]="field?.control"></simple-forms-control>
+  <ng-container *ngIf="!field?.type || field?.type === 'input'">
+    <input matInput [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'">
+  </ng-container>
+  
+  <ng-container *ngIf="field?.type === 'select'">
+    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple">
+      <mat-option *ngFor="let option of field?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
+    </mat-select>
+  </ng-container>
+  
+  <ng-container *ngIf="field?.type === 'date'">
+    <input matInput #date_input [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field?.placeholder">
+    <mat-datepicker-toggle matSuffix [for]="date_picker" class="mat-datepicker-toggle-suffix"></mat-datepicker-toggle>
+    <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
+  </ng-container>
 </mat-form-field>

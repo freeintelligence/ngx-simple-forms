@@ -14,7 +14,7 @@ export class SimpleFormsService {
     const data: DialogArguments = {
       header: typeof argumentsData.header === 'object' && argumentsData.header !== null && argumentsData.header ? argumentsData.header : null,
       message: typeof argumentsData.message === 'string' && argumentsData.message.length ? argumentsData.message : null,
-      controls: argumentsData.controls,
+      fields: argumentsData.fields,
       width: typeof argumentsData.width === 'string' ? argumentsData.width : '448px',
       disableClose: typeof argumentsData.disableClose === 'boolean' ? argumentsData.disableClose : false,
       hasBackdrop: typeof argumentsData.hasBackdrop === 'boolean' ? argumentsData.hasBackdrop : true,
@@ -25,7 +25,7 @@ export class SimpleFormsService {
       data: {
         header: data.header,
         message: data.message,
-        controls: data.controls,
+        fields: data.fields,
       } as InputData,
       disableClose: data.disableClose,
       hasBackdrop: data.hasBackdrop,

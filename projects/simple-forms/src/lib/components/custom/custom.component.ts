@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Control } from '../../interfaces/control.interface';
+import { Field } from '../../interfaces/field.interface';
 import { CustomHeader } from '../../interfaces/custom-header.interface';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -12,7 +12,7 @@ export class CustomComponent implements OnInit {
 
   @Input('header') header: CustomHeader = {};
   @Input('message') message: string;
-  @Input('controls') controls: { [key: string]: Control } | Control[] = {};
+  @Input('fields') fields: { [key: string]: Field } | Field[] = {};
 
   form: FormGroup = new FormGroup({});
 
@@ -23,14 +23,14 @@ export class CustomComponent implements OnInit {
   }
 
   createControls() {
-    if (!this.controls) {
+    if (!this.fields) {
       return false;
     }
 
-    for (let key in this.controls) {
-      const control: Control = this.controls[key];
+    for (let key in this.fields) {
+      const field: Field = this.fields[key];
 
-      this.form.addControl(control.key, new FormControl(null, []));
+      this.form.addControl(field.key, new FormControl(null, []));
     }
   }
 

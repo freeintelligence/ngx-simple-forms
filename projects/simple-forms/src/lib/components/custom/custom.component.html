@@ -5,5 +5,5 @@
 <p *ngIf="message" class="simple-alert" [innerHTML]="message"></p>
 
 <form [formGroup]="form" autocomplete="off">
-  <simple-forms-field *ngFor="let item of controls | keyvalue" [field]="{ control: item.value }"></simple-forms-field>
+  <simple-forms-field *ngFor="let item of fields | keyvalue" [field]="item.value"></simple-forms-field>
 </form>

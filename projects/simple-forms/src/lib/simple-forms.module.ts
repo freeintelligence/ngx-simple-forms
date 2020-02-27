@@ -5,12 +5,11 @@ import { DialogCustomComponent } from './components/dialog-custom/dialog-custom.
 import { SimpleFormsService } from './services/simple-forms.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ControlComponent } from './components/control/control.component';
 import { FieldComponent } from './components/field/field.component';
 
 @NgModule({
-  declarations: [CustomComponent, DialogCustomComponent, ControlComponent, FieldComponent],
-  entryComponents: [CustomComponent, DialogCustomComponent, ControlComponent, FieldComponent],
+  declarations: [CustomComponent, DialogCustomComponent, FieldComponent],
+  entryComponents: [CustomComponent, DialogCustomComponent, FieldComponent],
   imports: [
     CommonModule,
     MaterialModule,

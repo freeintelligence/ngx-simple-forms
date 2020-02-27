@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SimpleControl } from '../../interfaces/simple-control.interface';
+import { Field } from '../../interfaces/field.interface';
 import { CustomHeader } from '../../interfaces/custom-header.interface';
 
 export interface InputData {
   header?: CustomHeader;
   message?: string;
-  controls: { [key: string]: SimpleControl } | SimpleControl[];
+  fields: { [key: string]: Field } | Field[];
 }
 
 @Component({
