@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SimpleControl } from '../../interfaces/simple-control.interface';
 import { CustomHeader } from '../../interfaces/custom-header.interface';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'simple-forms-custom',
@@ -13,10 +14,24 @@ export class CustomComponent implements OnInit {
   @Input('message') message: string;
   @Input('controls') controls: { [key: string]: SimpleControl } | SimpleControl[] = {};
 
+  form: FormGroup = new FormGroup({});
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log('header', this.header);
+    this.createControls();
+  }
+
+  createControls() {
+    if (!this.controls) {
+      return false;
+    }
+
+    for (let key in this.controls) {
+      const control: SimpleControl = this.controls[key];
+
+      this.form.addControl(control.key, new FormControl(null, []));
+    }
   }
 
 }
