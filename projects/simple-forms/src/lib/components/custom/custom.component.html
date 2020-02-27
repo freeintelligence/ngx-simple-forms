@@ -2,4 +2,4 @@
   <span>{{ header?.title }}</span>
 </mat-toolbar>
 
-<p *ngIf="message">{{ message }}</p>
+<p *ngIf="message" class="simple-alert" [innerHTML]="message"></p>
