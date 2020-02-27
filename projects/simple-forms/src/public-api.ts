@@ -11,5 +11,5 @@ export * from './lib/components/field/field.component';
 export * from './lib/services/simple-forms.service';
 
 export * from './lib/interfaces/custom-header.interface';
-export * from './lib/interfaces/dialog-arguments.interface';
+export * from './lib/interfaces/dialog-custom-arguments.interface';
 export * from './lib/interfaces/field.interface';

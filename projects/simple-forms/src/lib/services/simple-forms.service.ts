@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCustomComponent, InputData } from '../components/dialog-custom/dialog-custom.component';
-import { DialogArguments } from '../interfaces/dialog-arguments.interface';
+import { DialogCustomArguments } from '../interfaces/dialog-custom-arguments.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ export class SimpleFormsService {
 
   constructor(private dialog: MatDialog) { }
 
-  createDialogForm(argumentsData: DialogArguments) {
-    const data: DialogArguments = {
+  createDialogForm(argumentsData: DialogCustomArguments) {
+    const data: DialogCustomArguments = {
       header: typeof argumentsData.header === 'object' && argumentsData.header !== null && argumentsData.header ? argumentsData.header : null,
       message: typeof argumentsData.message === 'string' && argumentsData.message.length ? argumentsData.message : null,
       fields: argumentsData.fields,
