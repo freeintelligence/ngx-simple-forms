@@ -6,7 +6,7 @@
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'select'">
-    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple">
+    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple" (selectionChange)="setValue($event?.value)">
       <mat-option *ngFor="let option of field?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
     </mat-select>
   </ng-container>

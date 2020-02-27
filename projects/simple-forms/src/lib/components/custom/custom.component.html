@@ -5,7 +5,9 @@
 <p *ngIf="message" class="simple-alert" [innerHTML]="message"></p>
 
 <form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
-  <simple-forms-field *ngFor="let item of fields | keyvalue" [formControlName]="item.value?.key" [field]="item.value"></simple-forms-field>
+  <simple-forms-field *ngFor="let item of fields | keyvalue: originalOrder" [formControlName]="item.value?.key" [field]="item.value"></simple-forms-field>
 
-  <button mat-button type="submit" color="primary">Enviar</button>
+  <div class="buttons-bottom">
+    <button mat-button type="submit" color="primary">Enviar</button>
+  </div>
 </form>

@@ -38,4 +38,8 @@ export class CustomComponent implements OnInit {
     console.log('values', this.form.value);
   }
 
+  originalOrder(): number {
+    return 0;
+  }
+
 }

@@ -22,6 +22,7 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('field2', this.field.key);
   }
 
   setValue(value: any) {
