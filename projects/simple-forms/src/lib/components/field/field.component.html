@@ -6,13 +6,13 @@
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'select'">
-    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple" (selectionChange)="setValue($event?.value)">
+    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple" [disabled]="disabled" (selectionChange)="setValue($event?.value)">
       <mat-option *ngFor="let option of field?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
     </mat-select>
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'date'">
-    <input matInput #date_input [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field?.placeholder">
+    <input matInput #date_input [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field?.placeholder" [disabled]="disabled" (dateChange)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)">
     <mat-datepicker-toggle matSuffix [for]="date_picker" class="mat-datepicker-toggle-suffix"></mat-datepicker-toggle>
     <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
   </ng-container>
