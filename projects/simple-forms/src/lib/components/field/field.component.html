@@ -2,7 +2,7 @@
   <mat-label *ngIf="field?.label">{{ field?.label }}</mat-label>
 
   <ng-container *ngIf="!field?.type || field?.type === 'input'">
-    <input matInput [placeholder]="field?.placeholder" [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'">
+    <input matInput [placeholder]="field?.placeholder" [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'" [disabled]="disabled" (change)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)">
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'select'">

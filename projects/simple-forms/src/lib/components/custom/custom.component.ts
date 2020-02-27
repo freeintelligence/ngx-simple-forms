@@ -34,4 +34,8 @@ export class CustomComponent implements OnInit {
     }
   }
 
+  async submit() {
+    console.log('values', this.form.value);
+  }
+
 }
