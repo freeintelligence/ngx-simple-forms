@@ -3,7 +3,7 @@ export interface Field {
   appearance?: 'legacy'|'standard'|'fill'|'outline';
   width?: string;
   label?: string;
-  placeholder: string;
+  placeholder?: string;
   type?: 'select'|'input'|'date';
 
   typeSelect?: {

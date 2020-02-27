@@ -1,8 +1,8 @@
 <mat-form-field [appearance]="field?.appearance ? field?.appearance : 'outline'" [style.width]="field?.width ? field?.width : '100%'">
-  <mat-label>{{ field?.label }}</mat-label>
+  <mat-label *ngIf="field?.label">{{ field?.label }}</mat-label>
 
   <ng-container *ngIf="!field?.type || field?.type === 'input'">
-    <input matInput [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'">
+    <input matInput [placeholder]="field?.placeholder" [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'">
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'select'">
