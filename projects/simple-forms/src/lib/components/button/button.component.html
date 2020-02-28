@@ -1,37 +1,37 @@
 <ng-container [ngSwitch]="button?.style">
   <button *ngSwitchDefault mat-button [color]="button?.color" [type]="button?.type ? button?.type : 'submit'" (click)="handle()">
-    <mat-icon *ngIf="button?.icon && button?.iconLeft; else soRight">{{ button?.icon }}</mat-icon>
+    <mat-icon *ngIf="button?.icon && button?.iconLeft">{{ button?.icon }}</mat-icon>
     {{ button?.text }}
-    <ng-template #soRight><mat-icon *ngIf="button?.icon">{{ button?.icon }}</mat-icon></ng-template>
+    <mat-icon *ngIf="button?.icon && !button?.iconLeft">{{ button?.icon }}</mat-icon>
   </button>
   <button *ngSwitchCase="'raised'" mat-raised-button [color]="button?.color" [type]="button?.type ? button?.type : 'submit'" (click)="handle()">
-    <mat-icon *ngIf="button?.icon && button?.iconLeft; else soRight">{{ button?.icon }}</mat-icon>
+    <mat-icon *ngIf="button?.icon && button?.iconLeft">{{ button?.icon }}</mat-icon>
     {{ button?.text }}
-    <ng-template #soRight><mat-icon *ngIf="button?.icon">{{ button?.icon }}</mat-icon></ng-template>
+    <mat-icon *ngIf="button?.icon && !button?.iconLeft">{{ button?.icon }}</mat-icon>
   </button>
   <button *ngSwitchCase="'stroked'" mat-stroked-button [color]="button?.color" [type]="button?.type ? button?.type : 'submit'" (click)="handle()">
-    <mat-icon *ngIf="button?.icon && button?.iconLeft; else soRight">{{ button?.icon }}</mat-icon>
+    <mat-icon *ngIf="button?.icon && button?.iconLeft">{{ button?.icon }}</mat-icon>
     {{ button?.text }}
-    <ng-template #soRight><mat-icon *ngIf="button?.icon">{{ button?.icon }}</mat-icon></ng-template>
+    <mat-icon *ngIf="button?.icon && !button?.iconLeft">{{ button?.icon }}</mat-icon>
   </button>
   <button *ngSwitchCase="'flat'" mat-flat-button [color]="button?.color" [type]="button?.type ? button?.type : 'submit'" (click)="handle()">
-    <mat-icon *ngIf="button?.icon && button?.iconLeft; else soRight">{{ button?.icon }}</mat-icon>
+    <mat-icon *ngIf="button?.icon && button?.iconLeft">{{ button?.icon }}</mat-icon>
     {{ button?.text }}
-    <ng-template #soRight><mat-icon *ngIf="button?.icon">{{ button?.icon }}</mat-icon></ng-template>
+    <mat-icon *ngIf="button?.icon && !button?.iconLeft">{{ button?.icon }}</mat-icon>
   </button>
   <button *ngSwitchCase="'icon'" mat-icon-button [color]="button?.color" [type]="button?.type ? button?.type : 'submit'" (click)="handle()">
-    <mat-icon *ngIf="button?.icon && button?.iconLeft; else soRight">{{ button?.icon }}</mat-icon>
+    <mat-icon *ngIf="button?.icon && button?.iconLeft">{{ button?.icon }}</mat-icon>
     {{ button?.text }}
-    <ng-template #soRight><mat-icon *ngIf="button?.icon">{{ button?.icon }}</mat-icon></ng-template>
+    <mat-icon *ngIf="button?.icon && !button?.iconLeft">{{ button?.icon }}</mat-icon>
   </button>
   <button *ngSwitchCase="'fab'" mat-fab [color]="button?.color" [type]="button?.type ? button?.type : 'submit'" (click)="handle()">
-    <mat-icon *ngIf="button?.icon && button?.iconLeft; else soRight">{{ button?.icon }}</mat-icon>
+    <mat-icon *ngIf="button?.icon && button?.iconLeft">{{ button?.icon }}</mat-icon>
     {{ button?.text }}
-    <ng-template #soRight><mat-icon *ngIf="button?.icon">{{ button?.icon }}</mat-icon></ng-template>
+    <mat-icon *ngIf="button?.icon && !button?.iconLeft">{{ button?.icon }}</mat-icon>
   </button>
   <button *ngSwitchCase="'mini-fab'" mat-mini-fab [color]="button?.color" [type]="button?.type ? button?.type : 'submit'" (click)="handle()">
-    <mat-icon *ngIf="button?.icon && button?.iconLeft; else soRight">{{ button?.icon }}</mat-icon>
+    <mat-icon *ngIf="button?.icon && button?.iconLeft">{{ button?.icon }}</mat-icon>
     {{ button?.text }}
-    <ng-template #soRight><mat-icon *ngIf="button?.icon">{{ button?.icon }}</mat-icon></ng-template>
+    <mat-icon *ngIf="button?.icon && !button?.iconLeft">{{ button?.icon }}</mat-icon>
   </button>
 </ng-container>
