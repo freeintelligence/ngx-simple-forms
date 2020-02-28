@@ -2,18 +2,20 @@
   <mat-label *ngIf="field?.label">{{ field?.label }}</mat-label>
 
   <ng-container *ngIf="!field?.type || field?.type === 'input'">
-    <input matInput [placeholder]="field?.placeholder" [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'" [disabled]="disabled" (change)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)">
+    <input matInput [placeholder]="field?.placeholder" [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'" [disabled]="disabled" [required]="required" (change)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)" [(ngModel)]="internalValue" #internalControl="ngModel">
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'select'">
-    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple" [disabled]="disabled" (selectionChange)="setValue($event?.value)">
+    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple" [disabled]="disabled" [required]="required" (selectionChange)="setValue($event?.value)" [(ngModel)]="internalValue" #internalControl="ngModel">
       <mat-option *ngFor="let option of field?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
     </mat-select>
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'date'">
-    <input matInput #date_input [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field?.placeholder" [disabled]="disabled" (dateChange)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)">
+    <input matInput #date_input [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field?.placeholder" [disabled]="disabled" [required]="required" (dateChange)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)" [(ngModel)]="internalValue" #internalControl="ngModel">
     <mat-datepicker-toggle matSuffix [for]="date_picker" class="mat-datepicker-toggle-suffix"></mat-datepicker-toggle>
     <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
   </ng-container>
+
+  <mat-error *ngIf="control?.errors?.required">Este campo es obligatorio!</mat-error>
 </mat-form-field>

@@ -4,6 +4,7 @@ export interface Field {
   width?: string;
   label?: string;
   placeholder?: string;
+  required?: boolean;
   type?: 'select'|'input'|'date';
 
   typeSelect?: {

@@ -44,6 +44,7 @@ export class CustomComponent implements OnInit {
     }
 
     if (this.form.invalid) {
+      console.log('onSubmit failed!', this.form.errors);
       return false;
     }
 
