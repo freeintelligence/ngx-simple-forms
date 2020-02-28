@@ -15,12 +15,12 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
   
   @Input('field') field: Field;
   @Input('required') required: boolean;
-  @Input('disabled') disabled: boolean;
   @Input('formControlName') formControlName: string;
 
   public value: any;
   public control: AbstractControl;
   public internalControl: FormControl = new FormControl(null, []);
+  private isDisabled: boolean;
   private onChange: Function;
   private onTouched: Function;
 
@@ -43,7 +43,7 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
       this.control.valueChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
       this.control.statusChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
 
-      this.setInitialDisabledState();
+      this.setInitialDisabledState(this.field.disabled);
     } else {
       this.setDisabledState(this.disabled);
     }
@@ -79,16 +79,30 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  setInitialDisabledState() {
+  setInitialDisabledState(isDisabled: boolean) {
     if (!this.control) {
       return false;
     }
 
-    if (this.field.disabled) {
+    if (isDisabled) {
       this.control.disable();
     } else {
       this.control.enable();
     }
+  }
+
+  set disabled(isDisabled: boolean) {
+    this.isDisabled = isDisabled;
+
+    if (isDisabled && this.control) {
+      this.control.disable();
+    } else {
+      this.control.enable();
+    }
+  }
+
+  get disabled(): boolean {
+    return this.isDisabled;
   }
 
   originalOrder(): number {
