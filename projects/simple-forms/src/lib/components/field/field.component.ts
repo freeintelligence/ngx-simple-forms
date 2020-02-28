@@ -9,7 +9,6 @@ import { MatFormFieldControl } from '@angular/material/form-field';
   styleUrls: ['./field.component.css'],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FieldComponent), multi: true },
-    { provide: MatFormFieldControl, useExisting: FieldComponent }
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -22,11 +21,9 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
   public value: any;
   public disabled: boolean;
   public control: AbstractControl;
-  public internalValue: any;
+  public internalControl: FormControl = new FormControl(null, []);
   private onChange: Function;
   private onTouched: Function;
-
-  internalControl: FormControl = new FormControl(null, []);
 
   constructor(private injector: Injector, @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer) { }
 
@@ -41,7 +38,7 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
       }
     }
 
-    this.internalControl.setValidators(this.field.validators);
+    this.internalControl.setValidators(this.field.validators instanceof Array ? this.field.validators : []);
     this.control.valueChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
     this.control.statusChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
   }
