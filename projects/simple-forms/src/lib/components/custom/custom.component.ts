@@ -19,7 +19,7 @@ export class CustomComponent implements OnInit {
   @Input('submit') submit: Submit;
 
   form: FormGroup = new FormGroup({});
-
+  
   constructor() { }
 
   ngOnInit(): void {

@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, forwardRef, Injector, Optional, Host, SkipSelf, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, Injector, Optional, Host, SkipSelf, ChangeDetectionStrategy } from '@angular/core';
 import { Field } from '../../interfaces/field.interface';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ControlContainer, AbstractControl, FormControl, NgModel } from '@angular/forms';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ControlContainer, AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'simple-forms-field',
@@ -16,10 +15,10 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
   
   @Input('field') field: Field;
   @Input('required') required: boolean;
+  @Input('disabled') disabled: boolean;
   @Input('formControlName') formControlName: string;
 
   public value: any;
-  public disabled: boolean;
   public control: AbstractControl;
   public internalControl: FormControl = new FormControl(null, []);
   private onChange: Function;
@@ -33,14 +32,21 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
     } else {
       const ngControl = this.injector.get(NgControl, null);
 
-      if (ngControl.control) {
+      if (ngControl && ngControl.control) {
         this.control = this.injector.get(NgControl).control;
       }
     }
 
     this.internalControl.setValidators(this.field.validators instanceof Array ? this.field.validators : []);
-    this.control.valueChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
-    this.control.statusChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
+
+    if (this.control) {
+      this.control.valueChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
+      this.control.statusChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
+
+      this.setInitialDisabledState();
+    } else {
+      this.setDisabledState(this.disabled);
+    }
   }
 
   setValue(value: any) {
@@ -63,6 +69,26 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+
+    if (this.internalControl) {
+      if (isDisabled) {
+        this.internalControl.disable();
+      } else {
+        this.internalControl.enable();
+      }
+    }
+  }
+
+  setInitialDisabledState() {
+    if (!this.control) {
+      return false;
+    }
+
+    if (this.field.disabled) {
+      this.control.disable();
+    } else {
+      this.control.enable();
+    }
   }
 
   originalOrder(): number {

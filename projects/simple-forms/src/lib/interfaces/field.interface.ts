@@ -4,6 +4,7 @@ export interface Field {
   width?: string;
   label?: string;
   placeholder?: string;
+  disabled?: boolean;
   required?: boolean;
   requiredMessage?: string;
   validators?: any[];
