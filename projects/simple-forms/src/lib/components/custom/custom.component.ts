@@ -34,7 +34,7 @@ export class CustomComponent implements OnInit {
     for (let key in this.fields) {
       const field: Field = this.fields[key];
 
-      this.form.addControl(field.key, new FormControl(null, []));
+      this.form.addControl(field.key, new FormControl(null, field.validators instanceof Array ? field.validators : []));
     }
   }
 
@@ -44,7 +44,11 @@ export class CustomComponent implements OnInit {
     }
 
     if (this.form.invalid) {
-      console.log('onSubmit failed!', this.form.errors);
+      console.log('onSubmit failed!', this.form.controls.name.errors);
+
+      for (let key in this.form.controls) {
+        this.form.controls[key].updateValueAndValidity({ emitEvent: true, onlySelf: true });
+      }
       return false;
     }
 

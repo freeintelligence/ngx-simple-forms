@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, forwardRef, Injector, Optional, Host, SkipSelf } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, Injector, Optional, Host, SkipSelf, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Field } from '../../interfaces/field.interface';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ControlContainer, AbstractControl } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ControlContainer, AbstractControl, FormControl, NgModel } from '@angular/forms';
+import { MatFormFieldControl } from '@angular/material/form-field';
 
 @Component({
   selector: 'simple-forms-field',
@@ -8,7 +9,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ControlContainer, A
   styleUrls: ['./field.component.css'],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FieldComponent), multi: true },
+    { provide: MatFormFieldControl, useExisting: FieldComponent }
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldComponent implements OnInit, ControlValueAccessor {
   
@@ -23,6 +26,8 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
   private onChange: Function;
   private onTouched: Function;
 
+  internalControl: FormControl = new FormControl(null, []);
+
   constructor(private injector: Injector, @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer) { }
 
   ngOnInit(): void {
@@ -35,6 +40,10 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
         this.control = this.injector.get(NgControl).control;
       }
     }
+
+    this.internalControl.setValidators(this.field.validators);
+    this.control.valueChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
+    this.control.statusChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
   }
 
   setValue(value: any) {
@@ -57,6 +66,10 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  originalOrder(): number {
+    return 0;
   }
 
 }

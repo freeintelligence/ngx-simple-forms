@@ -2,20 +2,24 @@
   <mat-label *ngIf="field?.label">{{ field?.label }}</mat-label>
 
   <ng-container *ngIf="!field?.type || field?.type === 'input'">
-    <input matInput [placeholder]="field?.placeholder" [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'" [disabled]="disabled" [required]="required" (change)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)" [(ngModel)]="internalValue" #internalControl="ngModel">
+    <input matInput [placeholder]="field?.placeholder" [type]="field?.typeInput?.type ? field?.typeInput?.type : 'text'" [required]="required" (change)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)" [formControl]="internalControl">
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'select'">
-    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple" [disabled]="disabled" [required]="required" (selectionChange)="setValue($event?.value)" [(ngModel)]="internalValue" #internalControl="ngModel">
+    <mat-select [placeholder]="field?.placeholder" [multiple]="field?.typeSelect?.multiple" [required]="required" (selectionChange)="setValue($event?.value)" [formControl]="internalControl">
       <mat-option *ngFor="let option of field?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
     </mat-select>
   </ng-container>
   
   <ng-container *ngIf="field?.type === 'date'">
-    <input matInput #date_input [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field?.placeholder" [disabled]="disabled" [required]="required" (dateChange)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)" [(ngModel)]="internalValue" #internalControl="ngModel">
+    <input matInput #date_input [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field?.placeholder" [required]="required" (dateChange)="setValue($event?.target?.value)" (keypress)="setValue($event?.target?.value)" [formControl]="internalControl">
     <mat-datepicker-toggle matSuffix [for]="date_picker" class="mat-datepicker-toggle-suffix"></mat-datepicker-toggle>
     <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
   </ng-container>
 
-  <mat-error *ngIf="control?.errors?.required">{{ field?.requiredMessage ? field?.requiredMessage : 'Este campo es obligatorio!' }}</mat-error>
+  <mat-error *ngIf="control?.errors?.required && !field?.validatorMessages?.required">{{ field?.requiredMessage ? field?.requiredMessage : 'Este campo es obligatorio!' }}</mat-error>
+
+  <ng-container *ngFor="let message of field?.validatorMessages | keyvalue: originalOrder" ngProjectAs="mat-error">
+    <mat-error *ngIf="control?.errors && control?.errors[message.key]">{{ message.value }}</mat-error>
+  </ng-container>
 </mat-form-field>

@@ -6,6 +6,8 @@ export interface Field {
   placeholder?: string;
   required?: boolean;
   requiredMessage?: string;
+  validators?: any[];
+  validatorMessages?: { [key: string]: string };
   type?: 'select'|'input'|'date';
 
   typeSelect?: {
