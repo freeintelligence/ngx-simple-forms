@@ -4,7 +4,7 @@
 
 <p *ngIf="message" class="simple-alert" [innerHTML]="message"></p>
 
-<form [formGroup]="form" autocomplete="off">
+<form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
   <simple-forms-field *ngFor="let item of fields | keyvalue: originalOrder" [formControlName]="item.value?.key" [field]="item.value"></simple-forms-field>
 
   <div class="buttons-bottom">

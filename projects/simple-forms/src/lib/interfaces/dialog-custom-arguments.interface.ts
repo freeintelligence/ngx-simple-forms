@@ -1,6 +1,7 @@
 import { CustomHeader } from './custom-header.interface';
 import { Field } from './field.interface';
 import { Button } from './button.interface';
+import { Submit } from './submit.interface';
 
 export interface DialogCustomArguments {
   header?: CustomHeader;
@@ -10,4 +11,5 @@ export interface DialogCustomArguments {
   width?: string;
   disableClose?: boolean;
   hasBackdrop?: boolean;
+  submit?: Submit;
 }

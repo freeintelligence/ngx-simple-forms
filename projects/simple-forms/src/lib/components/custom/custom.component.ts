@@ -3,6 +3,7 @@ import { Field } from '../../interfaces/field.interface';
 import { CustomHeader } from '../../interfaces/custom-header.interface';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Button } from '../../interfaces/button.interface';
+import { Submit } from '../../interfaces/submit.interface';
 
 @Component({
   selector: 'simple-forms-custom',
@@ -15,6 +16,7 @@ export class CustomComponent implements OnInit {
   @Input('message') message: string;
   @Input('fields') fields: { [key: string]: Field } | Field[] = {};
   @Input('buttons') buttons: Button[] = [];
+  @Input('submit') submit: Submit;
 
   form: FormGroup = new FormGroup({});
 
@@ -34,6 +36,18 @@ export class CustomComponent implements OnInit {
 
       this.form.addControl(field.key, new FormControl(null, []));
     }
+  }
+
+  async onSubmit() {
+    if (typeof this.submit !== 'object' || this.submit === null) {
+      return false;
+    }
+
+    if (this.form.invalid) {
+      return false;
+    }
+
+    console.log('onSubmit success!');
   }
 
   originalOrder(): number {

@@ -19,6 +19,7 @@ export class SimpleFormsService {
       width: typeof argumentsData.width === 'string' ? argumentsData.width : '448px',
       disableClose: typeof argumentsData.disableClose === 'boolean' ? argumentsData.disableClose : false,
       hasBackdrop: typeof argumentsData.hasBackdrop === 'boolean' ? argumentsData.hasBackdrop : true,
+      submit: typeof argumentsData.submit === 'object' && argumentsData.submit !== null ? argumentsData.submit : null,
     };
 
     const dialog = this.dialog.open(DialogCustomComponent, {
@@ -28,6 +29,7 @@ export class SimpleFormsService {
         message: data.message,
         fields: data.fields,
         buttons: data.buttons,
+        submit: data.submit,
       } as InputData,
       disableClose: data.disableClose,
       hasBackdrop: data.hasBackdrop,
