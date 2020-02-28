@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Field } from '../../interfaces/field.interface';
 import { CustomHeader } from '../../interfaces/custom-header.interface';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Button } from '../../interfaces/button.interface';
 
 @Component({
   selector: 'simple-forms-custom',
@@ -13,6 +14,7 @@ export class CustomComponent implements OnInit {
   @Input('header') header: CustomHeader = {};
   @Input('message') message: string;
   @Input('fields') fields: { [key: string]: Field } | Field[] = {};
+  @Input('buttons') buttons: Button[] = [];
 
   form: FormGroup = new FormGroup({});
 
@@ -35,7 +37,6 @@ export class CustomComponent implements OnInit {
   }
 
   async submit() {
-    console.log('values', this.form.value);
   }
 
   originalOrder(): number {

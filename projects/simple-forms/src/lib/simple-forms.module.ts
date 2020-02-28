@@ -6,10 +6,11 @@ import { SimpleFormsService } from './services/simple-forms.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FieldComponent } from './components/field/field.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
-  declarations: [CustomComponent, DialogCustomComponent, FieldComponent],
-  entryComponents: [CustomComponent, DialogCustomComponent, FieldComponent],
+  declarations: [CustomComponent, DialogCustomComponent, FieldComponent, ButtonComponent],
+  entryComponents: [CustomComponent, DialogCustomComponent, FieldComponent, ButtonComponent],
   imports: [
     CommonModule,
     MaterialModule,

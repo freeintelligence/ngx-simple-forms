@@ -8,6 +8,6 @@
   <simple-forms-field *ngFor="let item of fields | keyvalue: originalOrder" [formControlName]="item.value?.key" [field]="item.value"></simple-forms-field>
 
   <div class="buttons-bottom">
-    <button mat-button type="submit" color="primary">Enviar</button>
+    <simple-forms-button *ngFor="let button of buttons" [button]="button"></simple-forms-button>
   </div>
 </form>
