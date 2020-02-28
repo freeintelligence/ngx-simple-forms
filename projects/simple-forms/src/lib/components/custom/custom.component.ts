@@ -44,9 +44,7 @@ export class CustomComponent implements OnInit {
     }
 
     if (this.form.invalid) {
-      console.log('onSubmit failed!', this.form.controls.name.errors);
-
-      for (let key in this.form.controls) {
+      for (const key in this.form.controls) {
         this.form.controls[key].updateValueAndValidity({ emitEvent: true, onlySelf: true });
       }
       return false;
