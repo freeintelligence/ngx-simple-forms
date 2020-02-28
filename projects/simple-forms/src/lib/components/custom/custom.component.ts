@@ -36,9 +36,6 @@ export class CustomComponent implements OnInit {
     }
   }
 
-  async submit() {
-  }
-
   originalOrder(): number {
     return 0;
   }

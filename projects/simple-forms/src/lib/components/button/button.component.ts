@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Button } from '../../interfaces/button.interface';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'simple-forms-button',
@@ -9,6 +10,7 @@ import { Button } from '../../interfaces/button.interface';
 export class ButtonComponent implements OnInit {
 
   @Input('button') button: Button;
+  @Input('form') form: FormGroup;
 
   constructor() { }
 
@@ -17,7 +19,7 @@ export class ButtonComponent implements OnInit {
 
   handle() {
     if (typeof this.button.handle === 'function') {
-      this.button.handle();
+      this.button.handle(this.form);
     }
   }
 
