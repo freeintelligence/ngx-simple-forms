@@ -48,7 +48,7 @@ export class CustomComponent implements OnInit {
       return false;
     }
 
-    console.log('onSubmit success!');
+    console.log('onSubmit success!', this.form.value);
   }
 
   originalOrder(): number {

@@ -5,6 +5,7 @@ export interface Field {
   label?: string;
   placeholder?: string;
   required?: boolean;
+  requiredMessage?: string;
   type?: 'select'|'input'|'date';
 
   typeSelect?: {

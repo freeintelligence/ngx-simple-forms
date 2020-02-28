@@ -17,5 +17,5 @@
     <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
   </ng-container>
 
-  <mat-error *ngIf="control?.errors?.required">Este campo es obligatorio!</mat-error>
+  <mat-error *ngIf="control?.errors?.required">{{ field?.requiredMessage ? field?.requiredMessage : 'Este campo es obligatorio!' }}</mat-error>
 </mat-form-field>
