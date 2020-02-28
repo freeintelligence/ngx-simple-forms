@@ -4,5 +4,6 @@ export interface Button {
   type?: 'submit'|'button';
   text?: string;
   icon?: string;
+  iconLeft?: boolean;
   handle?: () => any;
 }
