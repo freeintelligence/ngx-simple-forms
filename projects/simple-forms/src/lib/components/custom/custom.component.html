@@ -3,7 +3,7 @@
 </mat-toolbar>
 
 <div *ngIf="!submitSuccess">
-  <mat-icon *ngIf="error" class="simple-alert mat-text" color="warn" [innerHTML]="submit?.errorMessage ? submit?.errorMessage : 'TENEMOS <strong>PROBLEMAS</strong> PARA CONECTARNOS AL SERVIDOR. <strong>INTENTA DENTRO DE UN RATO</strong>!'"></mat-icon>
+  <mat-icon *ngIf="error" class="simple-alert mat-text" color="warn" [innerHTML]="submit?.error?.message ? submit?.error?.message : 'TENEMOS <strong>PROBLEMAS</strong> PARA CONECTARNOS AL SERVIDOR. <strong>INTENTA DENTRO DE UN RATO</strong>!'"></mat-icon>
   <p *ngIf="message && !error" class="simple-alert" [innerHTML]="message"></p>
 
   <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
@@ -18,9 +18,9 @@
 
 <div *ngIf="submitSuccess" class="submit-success">
   <mat-icon color="primary">check_circle</mat-icon>
-  <h3>{{ submit?.successMessage ? submit?.successMessage : 'Formulario enviado exitosamente!' }}</h3>
+  <h3>{{ submit?.success?.message ? submit?.success?.message : 'Formulario enviado exitosamente!' }}</h3>
 
   <div class="buttons-success">
-    <simple-forms-button *ngFor="let button of submit?.buttons" [button]="button"></simple-forms-button>
+    <simple-forms-button *ngFor="let button of submit?.success?.buttons" [button]="button"></simple-forms-button>
   </div>
 </div>
