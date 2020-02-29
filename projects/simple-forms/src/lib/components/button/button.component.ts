@@ -11,6 +11,7 @@ export class ButtonComponent implements OnInit {
 
   @Input('button') button: Button;
   @Input('form') form: FormGroup;
+  @Input('disabled') disabled: boolean;
 
   constructor() { }
 

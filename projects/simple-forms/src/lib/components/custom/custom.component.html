@@ -2,12 +2,25 @@
   <span>{{ header?.title }}</span>
 </mat-toolbar>
 
-<p *ngIf="message" class="simple-alert" [innerHTML]="message"></p>
+<div *ngIf="!submitSuccess">
+  <mat-icon *ngIf="error" class="simple-alert mat-text" color="warn" [innerHTML]="submit?.errorMessage ? submit?.errorMessage : 'TENEMOS <strong>PROBLEMAS</strong> PARA CONECTARNOS AL SERVIDOR. <strong>INTENTA DENTRO DE UN RATO</strong>!'"></mat-icon>
+  <p *ngIf="message && !error" class="simple-alert" [innerHTML]="message"></p>
 
-<form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
-  <simple-forms-field *ngFor="let item of fields | keyvalue: originalOrder" [formControlName]="item.value?.key" [field]="item.value" [required]="item.value?.required"></simple-forms-field>
+  <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
+    <simple-forms-field *ngFor="let item of fields | keyvalue: originalOrder" [formControlName]="item.value?.key" [field]="item.value" [required]="item.value?.required"></simple-forms-field>
 
-  <div class="buttons-bottom">
-    <simple-forms-button *ngFor="let button of buttons" [button]="button" [form]="form"></simple-forms-button>
+    <div class="buttons-bottom">
+      <mat-spinner *ngIf="submitLoading" diameter="32"></mat-spinner>
+      <simple-forms-button *ngFor="let button of buttons" [disabled]="submitLoading" [button]="button" [form]="form"></simple-forms-button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="submitSuccess" class="submit-success">
+  <mat-icon color="primary">check_circle</mat-icon>
+  <h3>{{ submit?.successMessage ? submit?.successMessage : 'Formulario enviado exitosamente!' }}</h3>
+
+  <div class="buttons-success">
+    <simple-forms-button *ngFor="let button of submit?.buttons" [button]="button"></simple-forms-button>
   </div>
-</form>
+</div>

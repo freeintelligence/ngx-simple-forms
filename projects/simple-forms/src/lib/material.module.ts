@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatChipsModule,
     MatIconModule,
     MatNativeDateModule,
+    MatListModule,
   ],
   exports: [
     MatDialogModule,
@@ -55,6 +57,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatChipsModule,
     MatIconModule,
     MatNativeDateModule,
+    MatListModule,
   ]
 })
 export class MaterialModule {}

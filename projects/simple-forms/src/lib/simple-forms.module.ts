@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FieldComponent } from './components/field/field.component';
 import { ButtonComponent } from './components/button/button.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [CustomComponent, DialogCustomComponent, FieldComponent, ButtonComponent],
@@ -16,6 +17,7 @@ import { ButtonComponent } from './components/button/button.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   exports: [],
   providers: [
