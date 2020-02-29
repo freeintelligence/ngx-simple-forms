@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [CustomComponent, DialogCustomComponent, FieldComponent, ButtonComponent],
   entryComponents: [CustomComponent, DialogCustomComponent, FieldComponent, ButtonComponent],
+  exports: [CustomComponent, FieldComponent, ButtonComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -19,7 +20,6 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  exports: [],
   providers: [
     SimpleFormsService,
   ]
