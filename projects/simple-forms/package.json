@@ -1,6 +1,31 @@
 {
   "name": "ngx-simple-forms",
   "version": "9.0.0",
+  "description": "Create simple forms (dialogs and components) and alerts, among others..",
+  "author": {
+    "name": "freeintelligence",
+    "email": "free04381@gmail.com"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeintelligence/ngx-simple-forms.git"
+  },
+  "bugs": {
+    "url": "https://github.com/freeintelligence/ngx-simple-forms/issues"
+  },
+  "homepage": "https://github.com/freeintelligence/ngx-simple-forms#readme",
+  "keywords": [
+    "angular",
+    "angular9",
+    "ng",
+    "ngx",
+    "universal",
+    "simple",
+    "forms",
+    "form",
+    "reactive-form"
+  ],
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
