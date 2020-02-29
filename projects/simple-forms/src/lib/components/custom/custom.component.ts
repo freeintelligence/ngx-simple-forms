@@ -94,8 +94,20 @@ export class CustomComponent implements OnInit {
       }
 
       this.submitSuccess = true;
+
+      if (typeof this.submit === 'object' && this.submit !== null &&
+        typeof this.submit.success === 'object' && this.submit.success !== null &&
+        typeof this.submit.success.handle === 'function') {
+        await this.submit.success.handle(result);
+      }
     } catch (err) {
       this.error = err;
+
+      if (typeof this.submit === 'object' && this.submit !== null &&
+        typeof this.submit.error === 'object' && this.submit.error !== null &&
+        typeof this.submit.error.handle === 'function') {
+        await this.submit.error.handle(this.error);
+      }
     }
 
     this.submitLoading = false;

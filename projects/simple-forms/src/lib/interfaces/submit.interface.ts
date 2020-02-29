@@ -5,11 +5,11 @@ export interface Submit {
   method: 'post'|'POST'|'get'|'GET'|'patch'|'PATCH'|'put'|'PUT'|'delete'|'DELETE';
   error?: {
     message?: string;
-    handle?: () => any;
+    handle?: (err: Error) => any;
   },
   success?: {
     message?: string;
     buttons?: Button[];
-    handle?: () => any;
+    handle?: (result: any) => any;
   }
 }
