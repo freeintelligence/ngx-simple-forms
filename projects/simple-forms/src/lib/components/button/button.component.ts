@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Button } from '../../interfaces/button.interface';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'simple-forms-button',
@@ -10,17 +9,17 @@ import { FormGroup } from '@angular/forms';
 export class ButtonComponent implements OnInit {
 
   @Input('button') button: Button;
-  @Input('form') form: FormGroup;
   @Input('disabled') disabled: boolean;
+  @Input('handleParams') handleParams: any[];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  handle() {
+  async handle() {
     if (typeof this.button.handle === 'function') {
-      this.button.handle(this.form);
+      await this.button.handle(...this.handleParams);
     }
   }
 

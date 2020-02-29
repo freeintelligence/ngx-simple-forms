@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Field } from '../../interfaces/field.interface';
 import { CustomHeader } from '../../interfaces/custom-header.interface';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Button } from '../../interfaces/button.interface';
+import { ButtonPresubmit } from '../../interfaces/button.interface';
 import { Submit } from '../../interfaces/submit.interface';
 import { HttpClient } from '@angular/common/http';
 
@@ -16,12 +16,13 @@ export class CustomComponent implements OnInit {
   @Input('header') header: CustomHeader = {};
   @Input('message') message: string;
   @Input('fields') fields: { [key: string]: Field } | Field[] = {};
-  @Input('buttons') buttons: Button[] = [];
+  @Input('buttons') buttons: ButtonPresubmit[] = [];
   @Input('submit') submit: Submit;
 
   form: FormGroup = new FormGroup({});
   submitLoading: boolean;
   submitSuccess: boolean;
+  successResult: any;
   error: Error;
 
   constructor(private http: HttpClient) { }
@@ -67,28 +68,26 @@ export class CustomComponent implements OnInit {
     this.error = undefined;
 
     try {
-      let result: any;
-
       switch (typeof this.submit.method === 'string' && this.submit.method.length ? this.submit.method.toUpperCase() : 'GET') {
         case 'GET': {
-          result = await this.http.get(this.submit.url, { params: this.form.value }).toPromise();
+          this.successResult = await this.http.get(this.submit.url, { params: this.form.value }).toPromise();
           break;
         }
         case 'PATCH': {
-          result = await this.http.patch(this.submit.url, this.form.value).toPromise();
+          this.successResult = await this.http.patch(this.submit.url, this.form.value).toPromise();
           break;
         }
         case 'PUT': {
-          result = await this.http.put(this.submit.url, this.form.value).toPromise();
+          this.successResult = await this.http.put(this.submit.url, this.form.value).toPromise();
           break;
         }
         case 'DELETE': {
-          result = await this.http.delete(this.submit.url, { params: this.form.value }).toPromise();
+          this.successResult = await this.http.delete(this.submit.url, { params: this.form.value }).toPromise();
           break;
         }
         case 'POST':
         default: {
-          result = await this.http.post(this.submit.url, this.form.value).toPromise();
+          this.successResult = await this.http.post(this.submit.url, this.form.value).toPromise();
           break;
         }
       }
@@ -98,7 +97,7 @@ export class CustomComponent implements OnInit {
       if (typeof this.submit === 'object' && this.submit !== null &&
         typeof this.submit.success === 'object' && this.submit.success !== null &&
         typeof this.submit.success.handle === 'function') {
-        await this.submit.success.handle(result);
+        await this.submit.success.handle(this.successResult);
       }
     } catch (err) {
       this.error = err;

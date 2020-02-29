@@ -1,4 +1,4 @@
-import { Button } from './button.interface';
+import { ButtonSubmitSuccess } from './button.interface';
 
 export interface Submit {
   url: string;
@@ -9,7 +9,7 @@ export interface Submit {
   },
   success?: {
     message?: string;
-    buttons?: Button[];
+    buttons?: ButtonSubmitSuccess[];
     handle?: (result: any) => any;
   }
 }

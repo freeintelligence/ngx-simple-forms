@@ -2,14 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Field } from '../../interfaces/field.interface';
 import { CustomHeader } from '../../interfaces/custom-header.interface';
-import { Button } from '../../interfaces/button.interface';
+import { ButtonPresubmit } from '../../interfaces/button.interface';
 import { Submit } from '../../interfaces/submit.interface';
 
 export interface InputData {
   header?: CustomHeader;
   message?: string;
   fields: { [key: string]: Field } | Field[];
-  buttons?: Button[];
+  buttons?: ButtonPresubmit[];
   submit?: Submit;
 }
 

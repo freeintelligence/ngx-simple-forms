@@ -7,5 +7,13 @@ export interface Button {
   text?: string;
   icon?: string;
   iconLeft?: boolean;
+  handle?: (...data: any) => any;
+}
+
+export interface ButtonSubmitSuccess extends Button {
+  handle?: (result: any) => any;
+}
+
+export interface ButtonPresubmit extends Button {
   handle?: (form: FormGroup) => any;
 }
