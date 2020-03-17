@@ -22,6 +22,7 @@ export interface Field {
     color?: 'primary'|'warn'|'accent';
     handle?: (field: Field) => void;
   };
+  hidden?: (...data: any) => boolean;
   type?: 'select'|'input'|'date'|'file'|'textarea';
 
   typeTextArea?: {

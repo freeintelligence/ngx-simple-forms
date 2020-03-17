@@ -17,6 +17,7 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
   @Input('required') required: boolean;
   @Input('disabled') disabled: boolean;
   @Input('formControlName') formControlName: string;
+  @Input('hiddenParams') hiddenParams: any[];
 
   public value: any;
   public control: AbstractControl;
@@ -105,6 +106,12 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
   handlePrefix() {
     if (this.field.prefix && typeof this.field.prefix.handle === 'function') {
       return this.field.prefix.handle(this.field);
+    }
+  }
+
+  hidden() {
+    if (typeof this.field.hidden === 'function') {
+      return this.field.hidden(...this.hiddenParams);
     }
   }
 

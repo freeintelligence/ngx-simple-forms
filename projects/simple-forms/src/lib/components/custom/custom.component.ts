@@ -16,6 +16,7 @@ export class CustomComponent implements OnInit {
   @Input('header') header: CustomHeader = {};
   @Input('message') message: string;
   @Input('fields') fields: { [key: string]: Field } | Field[] = {};
+  @Input('fieldHiddenParams') fieldHiddenParams: any[] = [];
   @Input('buttons') buttons: ButtonPresubmit[] = [];
   @Input('model') model: any = {};
   @Input('submit') submit: Submit;
