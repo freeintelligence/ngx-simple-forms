@@ -9,6 +9,18 @@ export interface Field {
   requiredMessage?: string;
   validators?: any[];
   validatorMessages?: { [key: string]: string };
+  suffix?: {
+    icon?: string;
+    text?: string;
+    color?: 'primary'|'warn'|'accent';
+    handle?: (field: Field) => void;
+  };
+  prefix?: {
+    icon?: string;
+    text?: string;
+    color?: 'primary'|'warn'|'accent';
+    handle?: (field: Field) => void;
+  };
   type?: 'select'|'input'|'date'|'file'|'textarea';
 
   typeTextArea?: {

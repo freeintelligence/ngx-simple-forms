@@ -95,4 +95,16 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
     return 0;
   }
 
+  handleSuffix() {
+    if (this.field.suffix && typeof this.field.suffix.handle === 'function') {
+      return this.field.suffix.handle(this.field);
+    }
+  }
+
+  handlePrefix() {
+    if (this.field.prefix && typeof this.field.prefix.handle === 'function') {
+      return this.field.prefix.handle(this.field);
+    }
+  }
+
 }
