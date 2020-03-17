@@ -7,6 +7,7 @@ export interface Button {
   text?: string;
   icon?: string;
   iconLeft?: boolean;
+  tooltip?: string;
   handle?: (...data: any) => any;
 }
 

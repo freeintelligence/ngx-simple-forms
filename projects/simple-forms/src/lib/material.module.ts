@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,6 +23,7 @@ import { MatListModule } from '@angular/material/list';
   imports: [
     MatDialogModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatInputModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
@@ -42,6 +44,7 @@ import { MatListModule } from '@angular/material/list';
   exports: [
     MatDialogModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatInputModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
