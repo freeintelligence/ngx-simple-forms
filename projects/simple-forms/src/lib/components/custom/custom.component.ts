@@ -45,8 +45,26 @@ export class CustomComponent implements OnInit {
   }
 
   hasFileField() {
+    if (!((this.fields instanceof Array) || (typeof this.fields === 'object' && this.fields !== null))) {
+      return false;
+    }
+
     for (const key in this.fields) {
       if ((this.fields[key] as Field).type === 'file') {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  hasSubmitHandleButton() {
+    if (!((this.buttons instanceof Array) || (typeof this.buttons === 'object' && this.buttons !== null))) {
+      return false;
+    }
+
+    for (const key in this.buttons) {
+      if (typeof (this.buttons[key] as ButtonPresubmit).handle === 'function' && (this.buttons[key] as ButtonPresubmit).type === 'submit') {
         return true;
       }
     }
@@ -70,7 +88,7 @@ export class CustomComponent implements OnInit {
       return false;
     }
 
-    if (typeof this.submit.url !== 'string') {
+    if (typeof this.submit.url !== 'string' && !this.hasSubmitHandleButton()) {
       return console.warn('Submit url is not a valid string!');
     }
 
