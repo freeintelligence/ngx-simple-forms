@@ -9,12 +9,18 @@ export interface Field {
   requiredMessage?: string;
   validators?: any[];
   validatorMessages?: { [key: string]: string };
-  type?: 'select'|'input'|'date';
+  type?: 'select'|'input'|'date'|'file';
+
+  typeFile?: {
+    accept?: string;
+    multiple?: boolean;
+    autofilled?: boolean;
+  };
 
   typeSelect?: {
     options?: { value: any, description: string }[];
     multiple?: boolean;
-  }
+  };
 
   typeInput?: {
     type?:
@@ -40,7 +46,7 @@ export interface Field {
       'time'|
       'url'|
       'week';
-  }
+  };
 
   typeDate?: {
 

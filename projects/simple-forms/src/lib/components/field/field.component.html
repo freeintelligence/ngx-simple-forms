@@ -17,6 +17,10 @@
     <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
   </ng-container>
 
+  <ng-container *ngIf="field?.type === 'file'">
+    <ngx-mat-file-input (change)="setValue(field?.typeFile?.multiple ? $event?.srcElement?.files : $event?.srcElement?.files[0])" [placeholder]="field?.placeholder" [accept]="field?.typeFile?.accept" [multiple]="field?.typeFile?.multiple" [autofilled]="field?.typeFile?.autofilled" [required]="required" [formControl]="internalControl"></ngx-mat-file-input>
+  </ng-container>
+
   <mat-error *ngIf="control?.errors?.required && !field?.validatorMessages?.required">{{ field?.requiredMessage ? field?.requiredMessage : 'Este campo es obligatorio!' }}</mat-error>
 
   <ng-container *ngFor="let message of field?.validatorMessages | keyvalue: originalOrder" ngProjectAs="mat-error">

@@ -4,7 +4,7 @@ import { CustomHeader } from '../../interfaces/custom-header.interface';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ButtonPresubmit } from '../../interfaces/button.interface';
 import { Submit } from '../../interfaces/submit.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'simple-forms-custom',
@@ -43,6 +43,16 @@ export class CustomComponent implements OnInit {
     }
   }
 
+  hasFileField() {
+    for (const key in this.fields) {
+      if ((this.fields[key] as Field).type === 'file') {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   async onSubmit() {
     if (typeof this.submit !== 'object' || this.submit === null) {
       return false;
@@ -67,6 +77,17 @@ export class CustomComponent implements OnInit {
     this.submitSuccess = false;
     this.error = undefined;
 
+    const formData: FormData = new FormData();
+    const headers: HttpHeaders = new HttpHeaders();
+
+    for (const key in this.form.controls) {
+      const control = this.form.controls[key];
+      formData.append(key, control.value);
+    }
+
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
     try {
       switch (typeof this.submit.method === 'string' && this.submit.method.length ? this.submit.method.toUpperCase() : 'GET') {
         case 'GET': {
@@ -74,11 +95,19 @@ export class CustomComponent implements OnInit {
           break;
         }
         case 'PATCH': {
-          this.successResult = await this.http.patch(this.submit.url, this.form.value).toPromise();
+          if (this.hasFileField()) {
+            this.successResult = await this.http.patch(this.submit.url, formData, { headers: headers }).toPromise();
+          } else {
+            this.successResult = await this.http.patch(this.submit.url, this.form.value).toPromise();
+          }
           break;
         }
         case 'PUT': {
-          this.successResult = await this.http.put(this.submit.url, this.form.value).toPromise();
+          if (this.hasFileField()) {
+            this.successResult = await this.http.put(this.submit.url, formData, { headers: headers }).toPromise();
+          } else {
+            this.successResult = await this.http.put(this.submit.url, this.form.value).toPromise();
+          }
           break;
         }
         case 'DELETE': {
@@ -87,7 +116,11 @@ export class CustomComponent implements OnInit {
         }
         case 'POST':
         default: {
-          this.successResult = await this.http.post(this.submit.url, this.form.value).toPromise();
+          if (this.hasFileField()) {
+            this.successResult = await this.http.post(this.submit.url, formData, { headers: headers }).toPromise();
+          } else {
+            this.successResult = await this.http.post(this.submit.url, this.form.value).toPromise();
+          }
           break;
         }
       }
