@@ -22,7 +22,7 @@
   <div mat-dialog-actions align="end">
     <div *ngIf="!submitSuccess" class="buttons-bottom">
       <mat-spinner *ngIf="submitLoading" diameter="32"></mat-spinner>
-      <simple-forms-button *ngFor="let button of buttons" [disabled]="submitLoading" [button]="button" [handleParams]="[ form ]"></simple-forms-button>
+      <simple-forms-button *ngFor="let button of buttons" [disabled]="submitLoading" [button]="button" [handleParams]="[ form, this ]"></simple-forms-button>
     </div>
 
     <div *ngIf="submitSuccess" class="buttons-bottom">

@@ -1,4 +1,5 @@
 import { FormGroup } from '@angular/forms';
+import { CustomComponent } from '../components/custom/custom.component';
 
 export interface Button {
   color?: 'primary'|'accent'|'warn';
@@ -16,5 +17,5 @@ export interface ButtonSubmitSuccess extends Button {
 }
 
 export interface ButtonPresubmit extends Button {
-  handle?: (form: FormGroup) => any;
+  handle?: (form: FormGroup, custom: CustomComponent) => any;
 }
