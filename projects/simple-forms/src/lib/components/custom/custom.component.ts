@@ -17,6 +17,7 @@ export class CustomComponent implements OnInit {
   @Input('message') message: string;
   @Input('fields') fields: { [key: string]: Field } | Field[] = {};
   @Input('buttons') buttons: ButtonPresubmit[] = [];
+  @Input('model') model: any = {};
   @Input('submit') submit: Submit;
 
   form: FormGroup = new FormGroup({});
@@ -39,7 +40,7 @@ export class CustomComponent implements OnInit {
     for (let key in this.fields) {
       const field: Field = this.fields[key];
 
-      this.form.addControl(field.key, new FormControl(null, field.validators instanceof Array ? field.validators : []));
+      this.form.addControl(field.key, new FormControl(typeof this.model[key] !== 'undefined' ? this.model[key] : field.defaultValue, field.validators instanceof Array ? field.validators : []));
     }
   }
 

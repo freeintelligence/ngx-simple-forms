@@ -40,6 +40,7 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
     this.internalControl.setValidators(this.field.validators instanceof Array ? this.field.validators : []);
 
     if (this.control) {
+      this.internalControl.setValue(this.control.value);
       this.control.valueChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
       this.control.statusChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
 

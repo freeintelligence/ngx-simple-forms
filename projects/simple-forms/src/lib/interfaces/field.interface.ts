@@ -9,6 +9,7 @@ export interface Field {
   requiredMessage?: string;
   validators?: any[];
   validatorMessages?: { [key: string]: string };
+  defaultValue?: any;
   suffix?: {
     icon?: string;
     text?: string;
