@@ -9,6 +9,7 @@ export interface InputData {
   header?: CustomHeader;
   message?: string;
   fields: { [key: string]: Field } | Field[];
+  fieldHiddenParams: any[];
   buttons?: ButtonPresubmit[];
   submit?: Submit;
 }

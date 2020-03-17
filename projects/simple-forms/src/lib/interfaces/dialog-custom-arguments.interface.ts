@@ -7,6 +7,7 @@ export interface DialogCustomArguments {
   header?: CustomHeader;
   message?: string;
   fields: { [key: string]: Field } | Field[];
+  fieldHiddenParams?: any[];
   buttons?: ButtonPresubmit[];
   width?: string;
   disableClose?: boolean;
