@@ -9,7 +9,11 @@ export interface Field {
   requiredMessage?: string;
   validators?: any[];
   validatorMessages?: { [key: string]: string };
-  type?: 'select'|'input'|'date'|'file';
+  type?: 'select'|'input'|'date'|'file'|'textarea';
+
+  typeTextArea?: {
+    rows?: number;
+  };
 
   typeFile?: {
     accept?: string;
