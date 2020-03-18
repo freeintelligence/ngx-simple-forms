@@ -9,6 +9,7 @@ export interface DialogCustomArguments {
   fields: { [key: string]: Field } | Field[];
   fieldHiddenParams?: any[];
   buttons?: ButtonPresubmit[];
+  model?: any;
   width?: string;
   disableClose?: boolean;
   hasBackdrop?: boolean;

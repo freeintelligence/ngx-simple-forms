@@ -17,6 +17,7 @@ export class SimpleFormsService {
       fields: argumentsData.fields,
       fieldHiddenParams: argumentsData.fields instanceof Array ? argumentsData.fieldHiddenParams : [],
       buttons: argumentsData.buttons instanceof Array ? argumentsData.buttons : [],
+      model: argumentsData.model,
       width: typeof argumentsData.width === 'string' ? argumentsData.width : '448px',
       disableClose: typeof argumentsData.disableClose === 'boolean' ? argumentsData.disableClose : false,
       hasBackdrop: typeof argumentsData.hasBackdrop === 'boolean' ? argumentsData.hasBackdrop : true,

@@ -11,6 +11,7 @@ export interface InputData {
   fields: { [key: string]: Field } | Field[];
   fieldHiddenParams: any[];
   buttons?: ButtonPresubmit[];
+  model?: any;
   submit?: Submit;
 }
 
