@@ -22,7 +22,8 @@ export interface InputData {
 })
 export class DialogCustomComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: InputData) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: InputData) {
+  }
 
   ngOnInit(): void {
   }
