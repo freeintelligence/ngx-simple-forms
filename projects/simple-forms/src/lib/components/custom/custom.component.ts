@@ -45,6 +45,20 @@ export class CustomComponent implements OnInit {
     }
   }
 
+  getFieldByKey(key: string): Field {
+    if (!((this.fields instanceof Array) || (typeof this.fields === 'object' && this.fields !== null))) {
+      return null;
+    }
+
+    for (const i in this.fields) {
+      if ((this.fields[i] as Field).key === key) {
+        return this.fields[i];
+      }
+    }
+
+    return null;
+  }
+
   hasFileField() {
     if (!((this.fields instanceof Array) || (typeof this.fields === 'object' && this.fields !== null))) {
       return false;
@@ -78,10 +92,18 @@ export class CustomComponent implements OnInit {
       return false;
     }
 
-    if (this.form.invalid) {
-      for (const key in this.form.controls) {
-        this.form.controls[key].updateValueAndValidity({ emitEvent: true, onlySelf: true });
+    let invalid = false;
+
+    for (const key in this.form.controls) {
+      this.form.controls[key].updateValueAndValidity({ emitEvent: true, onlySelf: true });
+      const field = this.getFieldByKey(key);
+
+      if (this.form.controls[key].invalid && field && (!field.hidden || !field.hidden())) {
+        invalid = true;
       }
+    }
+
+    if (invalid) {
       return false;
     }
 
