@@ -15,7 +15,7 @@ export class SimpleFormsService {
       header: typeof argumentsData.header === 'object' && argumentsData.header !== null && argumentsData.header ? argumentsData.header : null,
       message: typeof argumentsData.message === 'string' && argumentsData.message.length ? argumentsData.message : null,
       fields: argumentsData.fields,
-      fieldHiddenParams: argumentsData.fields instanceof Array ? argumentsData.fieldHiddenParams : [],
+      fieldHiddenParams: argumentsData.fieldHiddenParams instanceof Array ? argumentsData.fieldHiddenParams : [],
       buttons: argumentsData.buttons instanceof Array ? argumentsData.buttons : [],
       model: argumentsData.model,
       width: typeof argumentsData.width === 'string' ? argumentsData.width : '448px',
