@@ -43,6 +43,7 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
     if (this.control) {
       this.internalControl.setValue(this.control.value);
       this.control.valueChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
+      this.control.valueChanges.subscribe((e) => this.internalControl.setValue(e));
       this.control.statusChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
 
       this.setInitialDisabledState();
