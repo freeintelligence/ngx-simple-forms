@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { CustomComponent } from '../components/custom/custom.component';
+//import { CustomComponent } from '../components/custom/custom.component';
 
 export interface Button {
   color?: 'primary'|'accent'|'warn';
@@ -8,7 +8,7 @@ export interface Button {
   text?: string;
   icon?: string;
   iconLeft?: boolean;
-  tooltip?: string;
+  tooltip: string;
   handle?: (...data: any) => any;
 }
 
@@ -17,5 +17,5 @@ export interface ButtonSubmitSuccess extends Button {
 }
 
 export interface ButtonPresubmit extends Button {
-  handle?: (form: FormGroup, custom: CustomComponent) => any;
+  handle?: (form: FormGroup, custom: any/*CustomComponent*/) => any;
 }

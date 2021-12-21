@@ -14,18 +14,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class CustomComponent implements OnInit {
 
   @Input('header') header: CustomHeader = {};
-  @Input('message') message: string;
+  @Input('message') message!: string;
   @Input('fields') fields: { [key: string]: Field } | Field[] = {};
   @Input('fieldHiddenParams') fieldHiddenParams: any[] = [];
   @Input('buttons') buttons: ButtonPresubmit[] = [];
   @Input('model') model: any = {};
-  @Input('submit') submit: Submit;
+  @Input('submit') submit!: Submit;
 
   form: FormGroup = new FormGroup({});
-  submitLoading: boolean;
-  submitSuccess: boolean;
+  submitLoading!: boolean;
+  submitSuccess!: boolean;
   successResult: any;
-  error: Error;
+  error!: Error | undefined;
 
   constructor(private http: HttpClient) { }
 
@@ -39,20 +39,22 @@ export class CustomComponent implements OnInit {
     }
 
     for (let key in this.fields) {
-      const field: Field = this.fields[key];
+      const field: Field = (this.fields as any)[key];
 
       this.form.addControl(field.key, new FormControl(typeof this.model === 'object' && this.model !== null && typeof this.model[key] !== 'undefined' ? this.model[key] : field.defaultValue, field.validators instanceof Array ? field.validators : []));
     }
+
+    return true;
   }
 
-  getFieldByKey(key: string): Field {
+  getFieldByKey(key: string): Field | null {
     if (!((this.fields instanceof Array) || (typeof this.fields === 'object' && this.fields !== null))) {
       return null;
     }
 
     for (const i in this.fields) {
-      if ((this.fields[i] as Field).key === key) {
-        return this.fields[i];
+      if (((this.fields as any)[i] as Field).key === key) {
+        return (this.fields as any)[i];
       }
     }
 
@@ -65,7 +67,7 @@ export class CustomComponent implements OnInit {
     }
 
     for (const key in this.fields) {
-      if ((this.fields[key] as Field).type === 'file') {
+      if (((this.fields as any)[key] as Field).type === 'file') {
         return true;
       }
     }
@@ -175,12 +177,12 @@ export class CustomComponent implements OnInit {
         await this.submit.success.handle(this.successResult);
       }
     } catch (err) {
-      this.error = err;
+      this.error = err as any;
 
       if (typeof this.submit === 'object' && this.submit !== null &&
         typeof this.submit.error === 'object' && this.submit.error !== null &&
         typeof this.submit.error.handle === 'function') {
-        await this.submit.error.handle(this.error);
+        await this.submit.error.handle(this.error as Error);
       }
     }
 

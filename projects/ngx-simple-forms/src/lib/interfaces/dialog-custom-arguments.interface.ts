@@ -4,8 +4,8 @@ import { ButtonPresubmit } from './button.interface';
 import { Submit } from './submit.interface';
 
 export interface DialogCustomArguments {
-  header?: CustomHeader;
-  message?: string;
+  header?: CustomHeader | null;
+  message?: string | null;
   fields: { [key: string]: Field } | Field[];
   fieldHiddenParams?: any[];
   buttons?: ButtonPresubmit[];
@@ -13,5 +13,5 @@ export interface DialogCustomArguments {
   width?: string;
   disableClose?: boolean;
   hasBackdrop?: boolean;
-  submit?: Submit;
+  submit?: Submit | null;
 }

@@ -8,9 +8,9 @@ import { Button } from '../../interfaces/button.interface';
 })
 export class ButtonComponent implements OnInit {
 
-  @Input('button') button: Button;
-  @Input('disabled') disabled: boolean;
-  @Input('handleParams') handleParams: any[];
+  @Input('button') button!: Button;
+  @Input('disabled') disabled!: boolean;
+  @Input('handleParams') handleParams!: any[];
 
   constructor() { }
 

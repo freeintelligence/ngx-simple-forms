@@ -13,28 +13,28 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ControlContainer, A
 })
 export class FieldComponent implements OnInit, ControlValueAccessor {
   
-  @Input('field') field: Field;
-  @Input('required') required: boolean;
-  @Input('disabled') disabled: boolean;
-  @Input('formControlName') formControlName: string;
-  @Input('hiddenParams') hiddenParams: any[];
+  @Input('field') field!: Field;
+  @Input('required') required!: boolean;
+  @Input('disabled') disabled!: boolean;
+  @Input('formControlName') formControlName!: string;
+  @Input('hiddenParams') hiddenParams!: any[];
 
   public value: any;
-  public control: AbstractControl;
+  public control!: AbstractControl;
   public internalControl: FormControl = new FormControl(null, []);
-  private onChange: Function;
-  private onTouched: Function;
+  private onChange!: Function;
+  private onTouched!: Function;
 
   constructor(private injector: Injector, @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer) { }
 
   ngOnInit(): void {
     if (this.controlContainer && this.formControlName) {
-      this.control = this.controlContainer.control.get(this.formControlName);
+      this.control = this.controlContainer.control?.get(this.formControlName) as AbstractControl;
     } else {
       const ngControl = this.injector.get(NgControl, null);
 
       if (ngControl && ngControl.control) {
-        this.control = this.injector.get(NgControl).control;
+        this.control = this.injector.get(NgControl).control as AbstractControl;
       }
     }
 
@@ -92,6 +92,8 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
     } else {
       this.control.enable();
     }
+
+    return true;
   }
 
   originalOrder(): number {
@@ -114,6 +116,8 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
     if (typeof this.field.hidden === 'function') {
       return this.field.hidden(...this.hiddenParams);
     }
+
+    return true;
   }
 
 }

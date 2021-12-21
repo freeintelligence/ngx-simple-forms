@@ -1,47 +1,39 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "simple-forms": {
+    "ngx-simple-forms": {
       "projectType": "library",
-      "root": "projects/simple-forms",
-      "sourceRoot": "projects/simple-forms/src",
-      "prefix": "simple-forms",
+      "root": "projects/ngx-simple-forms",
+      "sourceRoot": "projects/ngx-simple-forms/src",
+      "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/simple-forms/tsconfig.lib.json",
-            "project": "projects/simple-forms/ng-package.json"
+            "project": "projects/ngx-simple-forms/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/simple-forms/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-simple-forms/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-simple-forms/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/simple-forms/src/test.ts",
-            "tsConfig": "projects/simple-forms/tsconfig.spec.json",
-            "karmaConfig": "projects/simple-forms/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/simple-forms/tsconfig.lib.json",
-              "projects/simple-forms/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "main": "projects/ngx-simple-forms/src/test.ts",
+            "tsConfig": "projects/ngx-simple-forms/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-simple-forms/karma.conf.js"
           }
         }
       }
-    }},
-  "defaultProject": "simple-forms"
+    }
+  },
+  "defaultProject": "ngx-simple-forms"
 }
