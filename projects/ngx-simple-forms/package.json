@@ -1,6 +1,6 @@
 {
   "name": "ngx-simple-forms",
-  "version": "13.0.0",
+  "version": "13.0.1",
   "description": "Create simple forms (dialogs and components) and alerts, among others..",
   "author": {
     "name": "freeintelligence",
@@ -27,10 +27,10 @@
     "reactive-form"
   ],
   "peerDependencies": {
-    "@angular/common": "^13.0.0",
-    "@angular/core": "^13.0.0",
-    "@angular/material": "^13.0.0",
-    "@angular/forms": "^13.0.0",
+    "@angular/common": "^13.2.0",
+    "@angular/core": "^13.2.0",
+    "@angular/material": "~13.2.2",
+    "@angular/forms": "~13.2.0",
     "ngx-material-file-input": "^3.0.0"
   },
   "dependencies": {
