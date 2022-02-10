@@ -117,7 +117,7 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
       return this.field.hidden(...this.hiddenParams);
     }
 
-    return true;
+    return false;
   }
 
 }

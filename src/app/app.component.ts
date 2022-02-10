@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
         name: {
           key: 'name',
           placeholder: 'Ingresa el nombre',
+          hidden: () => false,
         }
       }
     })

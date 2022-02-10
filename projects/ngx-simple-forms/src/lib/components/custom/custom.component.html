@@ -9,7 +9,6 @@
     <div *ngIf="!submitSuccess">
       <mat-icon *ngIf="error" class="simple-alert mat-text" color="warn" [innerHTML]="submit?.error?.message ? submit?.error?.message : 'TENEMOS <strong>PROBLEMAS</strong> PARA CONECTARNOS AL SERVIDOR. <strong>INTENTA DENTRO DE UN RATO</strong>!'"></mat-icon>
       <p *ngIf="message && !error" class="simple-alert" [innerHTML]="message"></p>
-      
       <simple-forms-field *ngFor="let item of fields | keyvalue: originalOrder" [formControlName]="item.value?.key" [field]="item.value" [hiddenParams]="fieldHiddenParams" [required]="item.value?.required"></simple-forms-field>
     </div>
 
