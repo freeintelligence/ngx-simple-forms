@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     this.service.createDialogForm({
       header: {
         title: 'Formulario',
+        color: 'primary',
       },
       message: 'veamos si funciona el mensaje',
       buttons: [
