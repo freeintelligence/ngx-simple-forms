@@ -41,7 +41,7 @@ export class CustomComponent implements OnInit {
     for (let key in this.fields) {
       const field: Field = (this.fields as any)[key];
 
-      this.form.addControl(field.key, new FormControl(typeof this.model === 'object' && this.model !== null && typeof this.model[key] !== 'undefined' ? this.model[key] : field.defaultValue, field.validators instanceof Array ? field.validators : []));
+      this.form.addControl(field.key, new FormControl(typeof field.value !== 'undefined' ? field.value : typeof this.model === 'object' && this.model !== null && typeof this.model[key] !== 'undefined' ? this.model[key] : field.defaultValue, field.validators instanceof Array ? field.validators : []));
     }
 
     return true;
