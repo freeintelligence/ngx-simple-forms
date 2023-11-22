@@ -7,25 +7,59 @@
 <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
   <div mat-dialog-content>
     <div *ngIf="!submitSuccess">
-      <mat-icon *ngIf="error" class="simple-alert mat-text" color="warn" [innerHTML]="submit?.error?.message ? submit?.error?.message : 'TENEMOS <strong>PROBLEMAS</strong> PARA CONECTARNOS AL SERVIDOR. <strong>INTENTA DENTRO DE UN RATO</strong>!'"></mat-icon>
-      <p *ngIf="message && !error" class="simple-alert" [innerHTML]="message"></p>
-      <simple-forms-field *ngFor="let item of fields | keyvalue: originalOrder" [formControlName]="item.value?.key" [field]="item.value" [hiddenParams]="fieldHiddenParams" [required]="item.value?.required"></simple-forms-field>
+      <mat-icon
+        *ngIf="error"
+        class="simple-alert mat-text"
+        color="warn"
+        [innerHTML]="
+          submit?.error?.message
+            ? submit?.error?.message
+            : 'TENEMOS <strong>PROBLEMAS</strong> PARA CONECTARNOS AL SERVIDOR. <strong>INTENTA DENTRO DE UN RATO</strong>!'
+        "
+      ></mat-icon>
+      <p
+        *ngIf="message && !error"
+        class="simple-alert"
+        [innerHTML]="message"
+      ></p>
+      <simple-forms-field
+        *ngFor="let item of fields | keyvalue : originalOrder"
+        [formControlName]="item.value.key"
+        [field]="item.value"
+        [hiddenParams]="fieldHiddenParams"
+        [required]="item.value.required || false"
+      ></simple-forms-field>
     </div>
 
     <div *ngIf="submitSuccess" class="submit-success">
       <mat-icon color="primary">check_circle</mat-icon>
-      <h3>{{ submit?.success?.message ? submit?.success?.message : 'Formulario enviado exitosamente!' }}</h3>
+      <h3>
+        {{
+          submit?.success?.message
+            ? submit?.success?.message
+            : "Formulario enviado exitosamente!"
+        }}
+      </h3>
     </div>
   </div>
 
   <div mat-dialog-actions align="end">
     <div *ngIf="!submitSuccess" class="buttons-bottom">
       <mat-spinner *ngIf="submitLoading" diameter="32"></mat-spinner>
-      <simple-forms-button *ngFor="let button of buttons" [disabled]="submitLoading" [button]="button" [handleParams]="[ form, this ]"></simple-forms-button>
+      <simple-forms-button
+        *ngFor="let button of buttons"
+        [disabled]="submitLoading"
+        [button]="button"
+        [handleParams]="[form, this]"
+      ></simple-forms-button>
     </div>
 
     <div *ngIf="submitSuccess" class="buttons-bottom">
-      <simple-forms-button *ngFor="let button of submit?.success?.buttons" [button]="button" [handleParams]="[ successResult ]"></simple-forms-button>
+      <simple-forms-button
+        *ngFor="let button of submit?.success?.buttons"
+        [button]="button"
+        [handleParams]="[successResult]"
+      ></simple-forms-button>
     </div>
   </div>
 </form>

@@ -11,8 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
-  declarations: [CustomComponent, DialogCustomComponent, FieldComponent, ButtonComponent],
-  entryComponents: [CustomComponent, DialogCustomComponent, FieldComponent, ButtonComponent],
+  declarations: [
+    CustomComponent,
+    DialogCustomComponent,
+    FieldComponent,
+    ButtonComponent,
+  ],
   exports: [CustomComponent, FieldComponent, ButtonComponent],
   imports: [
     CommonModule,
@@ -22,8 +26,6 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     HttpClientModule,
     MaterialFileInputModule,
   ],
-  providers: [
-    SimpleFormsService,
-  ]
+  providers: [SimpleFormsService],
 })
-export class SimpleFormsModule { }
+export class SimpleFormsModule {}

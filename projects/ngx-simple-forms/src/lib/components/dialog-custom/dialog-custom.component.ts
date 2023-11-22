@@ -8,7 +8,7 @@ import { Submit } from '../../interfaces/submit.interface';
 export interface InputData {
   header?: CustomHeader;
   message?: string;
-  fields: { [key: string]: Field } | Field[];
+  fields: { [key: string]: Field };
   fieldHiddenParams: any[];
   buttons?: ButtonPresubmit[];
   model?: any;
@@ -18,14 +18,10 @@ export interface InputData {
 @Component({
   selector: 'simple-forms-dialog-custom',
   templateUrl: './dialog-custom.component.html',
-  styleUrls: ['./dialog-custom.component.css']
+  styleUrls: ['./dialog-custom.component.css'],
 })
 export class DialogCustomComponent implements OnInit {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: InputData) {}
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: InputData) {
-  }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

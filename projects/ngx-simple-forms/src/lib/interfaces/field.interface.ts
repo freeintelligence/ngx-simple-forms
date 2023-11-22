@@ -1,6 +1,9 @@
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+
 export interface Field {
   key: string;
-  appearance?: 'legacy'|'standard'|'fill'|'outline';
+  // appearance?: 'legacy'|'standard'|'fill'|'outline';
+  appearance?: MatFormFieldAppearance;
   width?: string;
   label?: string;
   placeholder?: string;
@@ -14,17 +17,17 @@ export interface Field {
   suffix?: {
     icon?: string;
     text?: string;
-    color?: 'primary'|'warn'|'accent';
+    color?: 'primary' | 'warn' | 'accent';
     handle?: (field: Field) => void;
   };
   prefix?: {
     icon?: string;
     text?: string;
-    color?: 'primary'|'warn'|'accent';
+    color?: 'primary' | 'warn' | 'accent';
     handle?: (field: Field) => void;
   };
   hidden?: (...data: any) => boolean;
-  type?: 'select'|'input'|'date'|'file'|'textarea';
+  type?: 'select' | 'input' | 'date' | 'file' | 'textarea';
 
   typeTextArea?: {
     rows?: number;
@@ -37,37 +40,35 @@ export interface Field {
   };
 
   typeSelect?: {
-    options?: { value: any, description: string }[];
+    options?: { value: any; description: string }[];
     multiple?: boolean;
   };
 
   typeInput?: {
     type?:
-      'button'|
-      'checkbox'|
-      'color'|
-      'date'|
-      'datetime-local'|
-      'email'|
-      'file'|
-      'hidden'|
-      'image'|
-      'month'|
-      'number'|
-      'password'|
-      'radio'|
-      'range'|
-      'reset'|
-      'search'|
-      'submit'|
-      'tel'|
-      'text'|
-      'time'|
-      'url'|
-      'week';
+      | 'button'
+      | 'checkbox'
+      | 'color'
+      | 'date'
+      | 'datetime-local'
+      | 'email'
+      | 'file'
+      | 'hidden'
+      | 'image'
+      | 'month'
+      | 'number'
+      | 'password'
+      | 'radio'
+      | 'range'
+      | 'reset'
+      | 'search'
+      | 'submit'
+      | 'tel'
+      | 'text'
+      | 'time'
+      | 'url'
+      | 'week';
   };
 
-  typeDate?: {
-
-  };
+  typeDate?: {};
 }

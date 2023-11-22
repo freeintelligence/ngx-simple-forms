@@ -1,5 +1,5 @@
 /*
- * Public API Surface of simple-forms
+ * Public API Surface of ngx-simple-forms
  */
 
 export * from './lib/simple-forms.module';

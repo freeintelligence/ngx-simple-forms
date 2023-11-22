@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SimpleFormsService } from 'ngx-simple-forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
-
+export class AppComponent {
   title = 'ngx-simple-forms-workspace';
 
-  constructor(private service: SimpleFormsService) {
-
-  }
+  constructor(private service: SimpleFormsService) {}
 
   ngOnInit(): void {
     this.service.createDialogForm({
@@ -21,18 +18,15 @@ export class AppComponent implements OnInit {
         color: 'primary',
       },
       message: 'veamos si funciona el mensaje',
-      buttons: [
-        { text: 'Enviar', tooltip: '', color: 'primary', },
-      ],
+      buttons: [{ text: 'Enviar', tooltip: '', color: 'primary' }],
       fields: {
         name: {
           key: 'name',
           placeholder: 'Nombre',
           label: 'Escribe el nombre',
           hidden: () => false,
-        }
-      }
-    })
+        },
+      },
+    });
   }
-
 }

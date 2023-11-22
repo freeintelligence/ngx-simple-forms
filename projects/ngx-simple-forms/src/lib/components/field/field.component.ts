@@ -1,18 +1,38 @@
-import { Component, OnInit, Input, forwardRef, Injector, Optional, Host, SkipSelf, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  forwardRef,
+  Injector,
+  Optional,
+  Host,
+  SkipSelf,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Field } from '../../interfaces/field.interface';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ControlContainer, AbstractControl, FormControl } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ControlContainer,
+  AbstractControl,
+  FormControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'simple-forms-field',
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.css'],
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FieldComponent), multi: true },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FieldComponent),
+      multi: true,
+    },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldComponent implements OnInit, ControlValueAccessor {
-  
   @Input('field') field!: Field;
   @Input('required') required!: boolean;
   @Input('disabled') disabled!: boolean;
@@ -25,11 +45,16 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
   private onChange!: Function;
   private onTouched!: Function;
 
-  constructor(private injector: Injector, @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer) { }
+  constructor(
+    private injector: Injector,
+    @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer
+  ) {}
 
   ngOnInit(): void {
     if (this.controlContainer && this.formControlName) {
-      this.control = this.controlContainer.control?.get(this.formControlName) as AbstractControl;
+      this.control = this.controlContainer.control?.get(
+        this.formControlName
+      ) as AbstractControl;
     } else {
       const ngControl = this.injector.get(NgControl, null);
 
@@ -38,18 +63,46 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
       }
     }
 
-    this.internalControl.setValidators(this.field.validators instanceof Array ? this.field.validators : []);
+    this.internalControl.setValidators(
+      this.field.validators instanceof Array ? this.field.validators : []
+    );
 
     if (this.control) {
       this.internalControl.setValue(this.control.value);
-      this.control.valueChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
-      this.control.valueChanges.subscribe((e) => this.internalControl.setValue(e));
-      this.control.statusChanges.subscribe(() => this.internalControl.updateValueAndValidity({ onlySelf: true, emitEvent: true }));
+      this.control.valueChanges.subscribe(() =>
+        this.internalControl.updateValueAndValidity({
+          onlySelf: true,
+          emitEvent: true,
+        })
+      );
+      this.control.valueChanges.subscribe((e) =>
+        this.internalControl.setValue(e)
+      );
+      this.control.statusChanges.subscribe(() =>
+        this.internalControl.updateValueAndValidity({
+          onlySelf: true,
+          emitEvent: true,
+        })
+      );
 
       this.setInitialDisabledState();
     } else {
       this.setDisabledState(this.disabled);
     }
+  }
+
+  triggerEvent(event: any) {
+    const value = event?.target?.value;
+
+    return this.setValue(value);
+  }
+
+  triggerEventForFiles(field: Field, event: any) {
+    const value = field.typeFile?.multiple
+      ? event.srcElement?.files
+      : event.srcElement?.files[0];
+
+    this.setValue(value);
   }
 
   setValue(value: any) {
@@ -119,5 +172,4 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
 
     return false;
   }
-
 }
