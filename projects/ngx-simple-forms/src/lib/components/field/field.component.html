@@ -77,6 +77,30 @@
       [formControl]="internalControl"
     ></textarea>
   </ng-container>
+
+  <ng-container *ngIf="field?.type === 'remoteSelect'">
+    <mat-select
+      [hidden]="field.typeRemoteSelect?.loading"
+      [placeholder]="field.placeholder || ''"
+      [multiple]="field.typeRemoteSelect?.multiple"
+      [required]="required"
+      (selectionChange)="setValue($event.value)"
+      [formControl]="internalControl"
+    >
+      <mat-option
+        *ngFor="let option of field?.typeRemoteSelect?.options"
+        [value]="option.value"
+        >{{ option.description }}</mat-option
+      >
+    </mat-select>
+
+    <mat-spinner
+      *ngIf="field?.typeRemoteSelect?.loading"
+      matSuffix
+      diameter="24"
+      class="mat-select-spinner-right"
+    ></mat-spinner>
+  </ng-container>
   <!-- End field type -->
 
   <!-- Start prefix -->

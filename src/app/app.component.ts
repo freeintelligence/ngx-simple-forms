@@ -22,9 +22,24 @@ export class AppComponent {
       fields: {
         name: {
           key: 'name',
+          type: 'input',
           placeholder: 'Nombre',
           label: 'Escribe el nombre',
           hidden: () => false,
+        },
+        pokemon: {
+          key: 'pokemon',
+          type: 'remoteSelect',
+          placeholder: 'Pokemon',
+          label: 'Selecciona un pokemon',
+          hidden: () => false,
+          typeRemoteSelect: {
+            endpoint: 'https://pokeapi.co/api/v2/pokemon-species/',
+            resourcesPath: 'results',
+            itemValuePath: 'name',
+            itemDescriptionPath: 'name',
+            multiple: true,
+          },
         },
       },
     });

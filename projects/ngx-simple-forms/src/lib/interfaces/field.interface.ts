@@ -27,7 +27,7 @@ export interface Field {
     handle?: (field: Field) => void;
   };
   hidden?: (...data: any) => boolean;
-  type?: 'select' | 'input' | 'date' | 'file' | 'textarea';
+  type?: 'select' | 'input' | 'date' | 'file' | 'textarea' | 'remoteSelect';
 
   typeTextArea?: {
     rows?: number;
@@ -40,6 +40,17 @@ export interface Field {
   };
 
   typeSelect?: {
+    options?: { value: any; description: string }[];
+    multiple?: boolean;
+  };
+
+  typeRemoteSelect?: {
+    loading?: boolean;
+    endpoint?: string;
+    resourcesPath?: string;
+    itemValuePath?: string;
+    itemDescriptionPath?: string;
+    mutate?: (result: any) => {};
     options?: { value: any; description: string }[];
     multiple?: boolean;
   };

@@ -8,6 +8,7 @@ import {
   Host,
   SkipSelf,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Field } from '../../interfaces/field.interface';
 import {
@@ -18,6 +19,8 @@ import {
   AbstractControl,
   FormControl,
 } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'simple-forms-field',
@@ -47,10 +50,14 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
 
   constructor(
     private injector: Injector,
-    @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer
+    @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer,
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.typeRemoteSelect();
+
     if (this.controlContainer && this.formControlName) {
       this.control = this.controlContainer.control?.get(
         this.formControlName
@@ -171,5 +178,58 @@ export class FieldComponent implements OnInit, ControlValueAccessor {
     }
 
     return false;
+  }
+
+  getNestedPropertyValue(obj: any, path?: string) {
+    if (!path || path === '.' || path === '/' || path === '') {
+      return obj;
+    }
+
+    return path.split('.').reduce((current: any, key) => {
+      return current ? current[key] : undefined;
+    }, obj);
+  }
+
+  async typeRemoteSelect() {
+    if (this.field.type !== 'remoteSelect') {
+      return;
+    }
+
+    if (!this.field.typeRemoteSelect?.endpoint) {
+      return;
+    }
+
+    this.field.typeRemoteSelect.loading = true;
+
+    try {
+      this.field.typeRemoteSelect.options = [];
+
+      const response = await firstValueFrom(
+        this.http.get(this.field.typeRemoteSelect.endpoint)
+      );
+      const resources = this.getNestedPropertyValue(
+        response,
+        this.field.typeRemoteSelect.resourcesPath
+      );
+      const mutatedResources =
+        typeof this.field.typeRemoteSelect.mutate === 'function'
+          ? this.field.typeRemoteSelect.mutate(resources)
+          : resources;
+
+      for (const item of mutatedResources) {
+        this.field.typeRemoteSelect.options.push({
+          value: this.field.typeRemoteSelect.itemValuePath
+            ? item[this.field.typeRemoteSelect.itemValuePath]
+            : undefined,
+          description: this.field.typeRemoteSelect.itemDescriptionPath
+            ? item[this.field.typeRemoteSelect.itemDescriptionPath]
+            : undefined,
+        });
+      }
+
+      this.cdr.detectChanges();
+    } catch (err) {}
+
+    this.field.typeRemoteSelect.loading = false;
   }
 }
