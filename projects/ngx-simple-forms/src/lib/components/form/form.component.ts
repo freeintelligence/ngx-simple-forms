@@ -2,7 +2,6 @@ import {
   Component,
   ComponentFactoryResolver,
   Input,
-  OnInit,
   QueryList,
   ViewChildren,
   ViewContainerRef,
@@ -37,17 +36,16 @@ export class FormComponent {
   }
 
   createFields() {
-    this.dynamicComponentFieldContainer.forEach((container) => {
+    const fieldKeys = Object.keys(this.fields);
+
+    this.dynamicComponentFieldContainer.forEach((container, index) => {
       container.clear();
 
       const componentFactory =
         this.componentFactoryResolver.resolveComponentFactory(InputComponent);
       const componentRef = container.createComponent(componentFactory);
+      componentRef.instance.params = this.fields[fieldKeys[index]].params;
     });
-    console.log(
-      'dynamicComponentFieldContainer',
-      this.dynamicComponentFieldContainer
-    );
   }
 
   originalOrderFn = (

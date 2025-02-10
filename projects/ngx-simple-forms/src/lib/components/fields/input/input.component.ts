@@ -30,8 +30,7 @@ import { NgIf } from '@angular/common';
   ],
 })
 export class InputComponent implements ControlValueAccessor {
-  @Input() formControl!: FormControl;
-  @Input() parameters: InputParameters = {};
+  @Input() params: InputParameters = {};
 
   public value: string = '';
   public onChange: (value: string | null) => void = () => {};
@@ -56,6 +55,6 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.parameters.disabled = isDisabled;
+    this.params.disabled = isDisabled;
   }
 }
