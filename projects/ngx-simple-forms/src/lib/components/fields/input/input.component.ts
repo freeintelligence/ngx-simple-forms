@@ -1,19 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { InputParameters } from './input.parameters';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'ngx-simple-forms-input',
@@ -21,40 +11,8 @@ import { NgIf } from '@angular/common';
   imports: [ReactiveFormsModule, MatInputModule, NgIf],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
-      multi: true,
-    },
-  ],
 })
-export class InputComponent implements ControlValueAccessor {
-  @Input() params: InputParameters = {};
-
-  public value: string = '';
-  public onChange: (value: string | null) => void = () => {};
-  public onTouched: () => void = () => {};
-
-  handleChange(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.value = inputElement.value;
-    this.onChange(this.value);
-  }
-
-  writeValue(value: string): void {
-    this.value = value || '';
-  }
-
-  registerOnChange(fn: (value: string | null) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.params.disabled = isDisabled;
-  }
+export class InputComponent extends BaseComponent {
+  @Input() override params: InputParameters = {};
+  @Input() override formControl!: FormControl;
 }

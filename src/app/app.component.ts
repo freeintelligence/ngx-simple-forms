@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SimpleFormsService } from 'ngx-simple-forms';
-import { FormFields } from '../../projects/ngx-simple-forms/src/lib/components/form/form.interfaces';
+import { FormFields } from '../../projects/ngx-simple-forms/src/lib/components/form/form.fields';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,19 @@ export class AppComponent {
       type: 'input',
       params: {
         label: 'Apellido',
+      },
+    },
+    country: {
+      type: 'select',
+      params: {
+        label: 'País',
+        options: [
+          { value: 'arg', description: 'Argentina' },
+          { value: 'bra', description: 'Brasil' },
+          { value: 'col', description: 'Colombia' },
+          { value: 'chi', description: 'Chile' },
+          { value: 'per', description: 'Peru' },
+        ],
       },
     },
   };

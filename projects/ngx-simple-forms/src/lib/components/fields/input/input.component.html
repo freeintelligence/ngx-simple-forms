@@ -3,11 +3,9 @@
 
   <input
     matInput
+    [formControl]="formControl"
     [placeholder]="params.placeholder || ''"
     [name]="params.name || ''"
     [type]="params.type || 'text'"
-    [value]="value"
-    (blur)="onTouched()"
-    (change)="handleChange($event)"
   />
 </mat-form-field>
