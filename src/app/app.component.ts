@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SimpleFormsService } from 'ngx-simple-forms';
+import { FormFields } from '../../projects/ngx-simple-forms/src/lib/components/form/form.interfaces';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,25 @@ import { SimpleFormsService } from 'ngx-simple-forms';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'ngx-simple-forms-workspace';
+  fields: { [key: string]: FormFields } = {
+    name: {
+      type: 'input',
+      params: {
+        label: 'Nombre',
+      },
+    },
+    lastname: {
+      type: 'input',
+      params: {
+        label: 'Apellido',
+      },
+    },
+  };
 
   constructor(private service: SimpleFormsService) {}
 
   ngOnInit(): void {
-    this.service.createDialogForm({
+    /* this.service.createDialogForm({
       header: {
         title: 'Formulario',
         color: 'primary',
@@ -42,6 +56,6 @@ export class AppComponent {
           },
         },
       },
-    });
+    }); */
   }
 }

@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FieldComponent } from './components/field/field.component';
 import { ButtonComponent } from './components/button/button.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialFileInputModule,
   ],
   providers: [SimpleFormsService],
 })

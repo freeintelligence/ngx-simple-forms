@@ -1,0 +1,14 @@
+<mat-form-field>
+  <mat-label *ngIf="parameters.label">{{ parameters.label }}</mat-label>
+
+  <input
+    matInput
+    [placeholder]="parameters.placeholder || ''"
+    [type]="parameters.type || 'text'"
+    [value]="value"
+    [disabled]="!!parameters.disabled"
+    (blur)="onTouched()"
+    (change)="handleChange($event)"
+    [formControl]="formControl"
+  />
+</mat-form-field>

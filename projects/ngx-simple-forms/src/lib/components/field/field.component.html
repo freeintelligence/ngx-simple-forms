@@ -54,18 +54,6 @@
     <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
   </ng-container>
 
-  <ng-container *ngIf="field?.type === 'file'">
-    <ngx-mat-file-input
-      (change)="triggerEventForFiles(field, $event)"
-      [placeholder]="field.placeholder || ''"
-      [accept]="field.typeFile?.accept || null"
-      [multiple]="field.typeFile?.multiple || false"
-      [autofilled]="field.typeFile?.autofilled || false"
-      [required]="required"
-      [formControl]="internalControl"
-    ></ngx-mat-file-input>
-  </ng-container>
-
   <ng-container *ngIf="field?.type === 'textarea'">
     <textarea
       matInput
