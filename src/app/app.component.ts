@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SimpleFormsService } from 'ngx-simple-forms';
 import { FormFields } from '../../projects/ngx-simple-forms/src/lib/components/form/form.fields';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,9 @@ export class AppComponent {
       params: {
         label: 'Nombre',
       },
+      /*       validations: [
+        { type: Validators.required, message: 'Este campo es obligatorio' },
+      ] */
     },
     lastname: {
       type: 'input',

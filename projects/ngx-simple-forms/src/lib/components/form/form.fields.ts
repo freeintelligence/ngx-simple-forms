@@ -4,9 +4,15 @@ import { InputParameters } from '../fields/input/input.parameters';
 import { SelectComponent } from '../fields/select/select.component';
 import { SelectParameters } from '../fields/select/select.parameters';
 
+type BaseField = {
+  width?: string;
+  appearance?: string;
+  floatLabel?: string;
+};
+
 export type FormFields =
-  | { type: 'input'; width?: string; params: InputParameters }
-  | { type: 'select'; width?: string; params: SelectParameters };
+  | (BaseField & { type: 'input'; params: InputParameters })
+  | (BaseField & { type: 'select'; params: SelectParameters });
 
 export function getFormFieldComponentByType(
   type: string

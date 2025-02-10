@@ -30,10 +30,6 @@ export class FormComponent {
 
   ngAfterViewInit(): void {
     this.createFields();
-
-    setInterval(() => {
-      console.log('form', this.form.value);
-    }, 2000);
   }
 
   createFields() {
