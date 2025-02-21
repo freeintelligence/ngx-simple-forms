@@ -1,14 +1,25 @@
+import { FormGroup } from '@angular/forms';
+
+export type FormButtons = {
+  text: string;
+  color: 'primary' | 'warn' | 'accent';
+  type: 'submit' | 'button';
+  tooltip?: string;
+  icon?: string;
+  iconLeft?: string;
+  variant?: 'raised' | 'stroked' | 'flat' | 'icon';
+
+};
+
 import { FormControl } from '@angular/forms';
 import { BaseComponent } from '../fields/base/base.component';
 import { InputComponent } from '../fields/input/input.component';
 import { InputParameters } from '../fields/input/input.parameters';
 import { SelectComponent } from '../fields/select/select.component';
 import { SelectParameters } from '../fields/select/select.parameters';
-import { ButtonComponent } from '../fields/button/button.component';
-import { ButtonParameters } from '../fields/button/button.parameters';
 import { ComponentRef } from '@angular/core';
 
-type BaseField = {
+type BaseButton = {
   disabled?: () => boolean;
   hidden?: () => boolean;
   value?: unknown;
@@ -17,9 +28,8 @@ type BaseField = {
 };
 
 export type FormFields =
-  | (BaseField & { type: 'input'; params: InputParameters })
-  | (BaseField & { type: 'select'; params: SelectParameters })
-  | (BaseField & { type: 'button'; params: ButtonParameters });
+  | (BaseButton & { type: 'input'; params: InputParameters })
+  | (BaseButton & { type: 'select'; params: SelectParameters });
 
 export function getFormFieldComponentByType(
   type: string
@@ -27,7 +37,6 @@ export function getFormFieldComponentByType(
   const typesComponent: { [key: string]: typeof BaseComponent } = {
     input: InputComponent,
     select: SelectComponent,
-    button: ButtonComponent,
   };
 
   return typesComponent[type];

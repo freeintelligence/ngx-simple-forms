@@ -1,3 +1,10 @@
+<p>Int value: {{ changeInt }}</p>
+<button (click)="changeInt = changeInt - 1">Decrement</button>
+<button (click)="changeInt = changeInt + 1">Increment</button>
+
 <div class="form-container">
-  <ngx-simple-forms-form [fields]="fields"></ngx-simple-forms-form>
+  <ngx-simple-forms-form
+    [checkTimer]="256"
+    [fields]="fields"
+  ></ngx-simple-forms-form>
 </div>

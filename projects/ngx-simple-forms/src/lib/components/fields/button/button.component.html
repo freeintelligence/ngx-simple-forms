@@ -1,0 +1,38 @@
+<!-- <mat-form-field [style.width]="params.width || '100%'">
+  <mat-label *ngIf="params.label">{{ params.label }}</mat-label>
+
+  <input
+    matInput
+    [formControl]="formControl"
+    [placeholder]="params.placeholder || ''"
+    [name]="params.name || ''"
+    [type]="params.type || 'text'"
+  />
+</mat-form-field>
+ -->
+
+<div
+  class="button-container"
+  [style.width]="params.width || '100%'"
+  [ngSwitch]="params.variant"
+>
+  <!-- mat-raised-button -->
+  <button
+    *ngSwitchCase="'raised'"
+    mat-raised-button
+    [type]="params.type || 'button'"
+    [color]="params.color || 'primary'"
+  >
+    {{ params.text }}
+  </button>
+
+  <!-- mat-button -->
+  <button
+    *ngSwitchDefault
+    mat-button
+    [type]="params.type || 'button'"
+    [color]="params.color || 'primary'"
+  >
+    {{ params.text }}
+  </button>
+</div>
