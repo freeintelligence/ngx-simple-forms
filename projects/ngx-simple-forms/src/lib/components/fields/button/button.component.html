@@ -1,16 +1,3 @@
-<!-- <mat-form-field [style.width]="params.width || '100%'">
-  <mat-label *ngIf="params.label">{{ params.label }}</mat-label>
-
-  <input
-    matInput
-    [formControl]="formControl"
-    [placeholder]="params.placeholder || ''"
-    [name]="params.name || ''"
-    [type]="params.type || 'text'"
-  />
-</mat-form-field>
- -->
-
 <div
   class="button-container"
   [style.width]="params.width || '100%'"
@@ -22,8 +9,70 @@
     mat-raised-button
     [type]="params.type || 'button'"
     [color]="params.color || 'primary'"
+    [disabled]="isDisabled"
+    (click)="onClick($event)"
   >
     {{ params.text }}
+  </button>
+
+  <!-- mat-flat-button -->
+  <button
+    *ngSwitchCase="'flat'"
+    mat-flat-button
+    [type]="params.type || 'button'"
+    [color]="params.color || 'primary'"
+    [disabled]="isDisabled"
+    (click)="onClick($event)"
+  >
+    {{ params.text }}
+  </button>
+
+  <!-- mat-icon-button -->
+  <button
+    *ngSwitchCase="'icon'"
+    mat-icon-button
+    [type]="params.type || 'button'"
+    [color]="params.color || 'primary'"
+    [disabled]="isDisabled"
+    (click)="onClick($event)"
+  >
+    <mat-icon>{{ params.text }}</mat-icon>
+  </button>
+
+  <!-- mat-stroked-button -->
+  <button
+    *ngSwitchCase="'stroked'"
+    mat-stroked-button
+    [type]="params.type || 'button'"
+    [color]="params.color || 'primary'"
+    [disabled]="isDisabled"
+    (click)="onClick($event)"
+  >
+    {{ params.text }}
+  </button>
+
+  <!-- mat-fab -->
+  <button
+    *ngSwitchCase="'fab'"
+    mat-fab
+    [type]="params.type || 'button'"
+    [color]="params.color || 'primary'"
+    [disabled]="isDisabled"
+    (click)="onClick($event)"
+  >
+    <mat-icon>{{ params.text }}</mat-icon>
+  </button>
+
+  <!-- mat-mini-fab -->
+  <button
+    *ngSwitchCase="'mini-fab'"
+    mat-mini-fab
+    [type]="params.type || 'button'"
+    [color]="params.color || 'primary'"
+    [disabled]="isDisabled"
+    (click)="onClick($event)"
+  >
+    <mat-icon>{{ params.text }}</mat-icon>
   </button>
 
   <!-- mat-button -->
@@ -32,7 +81,15 @@
     mat-button
     [type]="params.type || 'button'"
     [color]="params.color || 'primary'"
+    [disabled]="isDisabled"
+    (click)="onClick($event)"
   >
     {{ params.text }}
   </button>
+
+  <mat-progress-bar
+    *ngIf="params.loading"
+    [color]="params.color || 'primary'"
+    mode="indeterminate"
+  ></mat-progress-bar>
 </div>

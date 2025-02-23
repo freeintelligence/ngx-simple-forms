@@ -6,7 +6,7 @@ import {
   ViewChildren,
   ViewContainerRef,
 } from '@angular/core';
-import { FormFields, getFormFieldComponentByType } from './form.fields';
+import { FormElement, getFormFieldComponentByType } from './form.fields';
 import { FormButtons } from './form.buttons';
 import { KeyValue, KeyValuePipe, NgFor } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class FormComponent {
   @Input() checkTimer = 0;
-  @Input() fields: { [key: string]: FormFields } = {};
+  @Input() fields: { [key: string]: FormElement } = {};
   @Input() buttons: { [key: string]: FormButtons } = {};
 
   @ViewChildren('dynamicComponentFieldContainer', { read: ViewContainerRef })
@@ -139,7 +139,7 @@ export class FormComponent {
     });
   }
 
-  private detectChanges() {
+  public detectChanges() {
     this.getFields().forEach(({ field }) => {
       field.componentRef?.changeDetectorRef?.detectChanges?.();
     });

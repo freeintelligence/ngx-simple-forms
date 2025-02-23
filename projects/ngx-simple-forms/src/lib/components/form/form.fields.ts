@@ -8,7 +8,7 @@ import { ButtonComponent } from '../fields/button/button.component';
 import { ButtonParameters } from '../fields/button/button.parameters';
 import { ComponentRef } from '@angular/core';
 
-type BaseField = {
+type BaseFormElement = {
   disabled?: () => boolean;
   hidden?: () => boolean;
   value?: unknown;
@@ -16,10 +16,24 @@ type BaseField = {
   componentRef?: ComponentRef<BaseComponent>;
 };
 
-export type FormFields =
-  | (BaseField & { type: 'input'; params: InputParameters })
-  | (BaseField & { type: 'select'; params: SelectParameters })
-  | (BaseField & { type: 'button'; params: ButtonParameters });
+type FormElementMap = {
+  input: BaseFormElement & { type: 'input'; params: InputParameters };
+  select: BaseFormElement & { type: 'select'; params: SelectParameters };
+  button: BaseFormElement & { type: 'button'; params: ButtonParameters };
+};
+
+export type FormElement = FormElementMap[keyof FormElementMap];
+
+export type FormElements<T extends 'input' | 'select' | 'button' = any> = {
+  type: T;
+  params: T extends 'input'
+    ? InputParameters
+    : T extends 'select'
+    ? SelectParameters
+    : T extends 'button'
+    ? ButtonParameters
+    : never;
+} & BaseFormElement;
 
 export function getFormFieldComponentByType(
   type: string

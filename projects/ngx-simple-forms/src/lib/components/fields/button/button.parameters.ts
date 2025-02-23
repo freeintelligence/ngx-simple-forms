@@ -1,3 +1,5 @@
+import { FormGroup } from '@angular/forms';
+
 type ButtonVariant =
   | 'basic'
   | 'raised'
@@ -15,4 +17,6 @@ export interface ButtonParameters {
   type?: 'submit' | 'button';
   variant?: ButtonVariant;
   color?: ButtonColor;
+  loading?: boolean;
+  handle?: (form: FormGroup) => Promise<void>;
 }

@@ -1,7 +1,15 @@
 .button-container {
+  position: relative;
   display: inline-block;
 }
 
 .button-container button {
   width: 100%;
+}
+
+mat-progress-bar {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100% !important;
 }

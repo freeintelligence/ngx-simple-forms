@@ -1,8 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { SimpleFormsService } from 'ngx-simple-forms';
-import { FormFields } from '../../projects/ngx-simple-forms/src/lib/components/form/form.fields';
+import {
+  FormElement,
+  FormElementsBase,
+} from '../../projects/ngx-simple-forms/src/lib/components/form/form.fields';
 import { Validators } from '@angular/forms';
 import { FormButtons } from '../../projects/ngx-simple-forms/src/lib/components/form/form.buttons';
+import { FormComponent } from '../../projects/ngx-simple-forms/src/lib/components/form/form.component';
+
+type TipoDeObjeto<T> = {
+  [clave: string]: T;
+};
+
+type Uno = {
+  uno: string;
+};
+
+type Dos = {
+  dos: string;
+};
+
+type Tres = {
+  tres: string;
+};
+
+type ItemDelObjeto =
+  | {
+      type: 'uno';
+      value: Uno;
+    }
+  | {
+      type: 'dos';
+      value: Dos;
+    }
+  | {
+      type: 'tres';
+      value: Tres;
+    };
+
+const objeto = {
+  elemento1: { type: 'uno', value: { uno: 'uno' } },
+  elemento2: { type: 'dos', value: { dos: 'dos' } },
+  otroElemento: { type: 'tres', value: { tres: 'tres' } },
+  otro: { type: 'dos', value: { dos: 'dos' } },
+} satisfies Record<string, ItemDelObjeto>;
+
+console.log(objeto['elemento1'].type, objeto.elemento1.value.uno);
+console.log(objeto['otroElemento'].type, objeto['otroElemento'].value.tres);
 
 @Component({
   selector: 'app-root',
@@ -10,16 +54,19 @@ import { FormButtons } from '../../projects/ngx-simple-forms/src/lib/components/
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  changeInt = 0;
+  @ViewChild(FormComponent) form!: FormComponent;
 
-  fields: { [key: string]: FormFields } = {
+  changeInt = 0;
+  loading = false;
+
+  fields: { [key: string]: FormElementsBase<any> } = {
     name: {
       type: 'input',
       params: {
         label: 'Nombre',
         width: '50%',
       },
-      disabled: () => this.changeInt === 3,
+      disabled: () => this.changeInt === 3 || this.loading,
     },
     lastname: {
       type: 'input',
@@ -45,6 +92,7 @@ export class AppComponent {
 
         return condition;
       },
+      disabled: () => this.loading,
     },
     country: {
       type: 'select',
@@ -59,38 +107,37 @@ export class AppComponent {
           { value: 'per', description: 'Peru' },
         ],
       },
-    },
-    submit: {
-      type: 'button',
-      params: {
-        text: 'Enviar',
-        variant: 'raised',
-        width: '50%',
-      },
+      disabled: () => this.loading,
     },
     reset: {
       type: 'button',
       params: {
         text: 'Reiniciar',
-        variant: 'raised',
+        variant: 'basic',
         width: '50%',
+        type: 'button',
+        color: 'accent',
       },
+      disabled: () => this.loading,
+    },
+    submit: {
+      type: 'button',
+      params: {
+        text: 'Enviar',
+        variant: 'flat',
+        width: '50%',
+        type: 'submit',
+        color: 'primary',
+        handle: async (form) => {
+          console.log('Enviado', form.value);
+          this.loading = true;
+          this.fields.submit.params.loading = true;
+          this.fields['submit'].params.loading = true;
+        },
+      },
+      disabled: () => this.loading,
     },
   };
-
-  /* buttons: { [key: string]: FormButtons } = {
-    submit: {
-      type: 'submit',
-      params: {
-        label: 'Enviar',
-        color: 'primary',
-      },
-      handle: (form) => {
-        console.log('Enviado', form.value);
-        this.buttons['submit'];
-      },
-    },
-  }; */
 
   constructor(private service: SimpleFormsService) {}
 
