@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { InputParameters } from './input.parameters';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -12,7 +12,13 @@ import { BaseComponent } from '../base/base.component';
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
 })
-export class InputComponent extends BaseComponent {
+export class InputComponent extends BaseComponent implements OnInit {
   @Input() override params: InputParameters = {};
   @Input() override formControl!: FormControl;
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+    this.detectChangesWithSetterWidth();
+  }
 }

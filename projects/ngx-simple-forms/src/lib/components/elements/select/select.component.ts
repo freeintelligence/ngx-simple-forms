@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
   MatFormField,
@@ -24,7 +24,13 @@ import { BaseComponent } from '../base/base.component';
   templateUrl: './select.component.html',
   styleUrl: './select.component.css',
 })
-export class SelectComponent extends BaseComponent {
+export class SelectComponent extends BaseComponent implements OnInit {
   @Input() override params: SelectParameters = {};
   @Input() override formControl!: FormControl;
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+    this.detectChangesWithSetterWidth();
+  }
 }

@@ -1,10 +1,10 @@
 <form [formGroup]="form">
-  <ng-container *ngFor="let field of fields | keyvalue : originalOrderFn">
+  <ng-container *ngFor="let element of elements | keyvalue : originalOrderFn">
     <div
-      class="field-container"
-      [style.display]="field.value.hidden?.() ? 'none' : 'inline'"
+      class="element-container"
+      [style.display]="element.value.hidden?.() ? 'none' : 'inline'"
     >
-      <ng-template #dynamicComponentFieldContainer></ng-template>
+      <ng-template #dynamicComponentElementContainer></ng-template>
     </div>
   </ng-container>
 </form>

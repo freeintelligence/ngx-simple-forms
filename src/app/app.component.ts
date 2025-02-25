@@ -1,52 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { SimpleFormsService } from 'ngx-simple-forms';
-import {
-  FormElement,
-  FormElementsBase,
-} from '../../projects/ngx-simple-forms/src/lib/components/form/form.fields';
-import { Validators } from '@angular/forms';
-import { FormButtons } from '../../projects/ngx-simple-forms/src/lib/components/form/form.buttons';
-import { FormComponent } from '../../projects/ngx-simple-forms/src/lib/components/form/form.component';
-
-type TipoDeObjeto<T> = {
-  [clave: string]: T;
-};
-
-type Uno = {
-  uno: string;
-};
-
-type Dos = {
-  dos: string;
-};
-
-type Tres = {
-  tres: string;
-};
-
-type ItemDelObjeto =
-  | {
-      type: 'uno';
-      value: Uno;
-    }
-  | {
-      type: 'dos';
-      value: Dos;
-    }
-  | {
-      type: 'tres';
-      value: Tres;
-    };
-
-const objeto = {
-  elemento1: { type: 'uno', value: { uno: 'uno' } },
-  elemento2: { type: 'dos', value: { dos: 'dos' } },
-  otroElemento: { type: 'tres', value: { tres: 'tres' } },
-  otro: { type: 'dos', value: { dos: 'dos' } },
-} satisfies Record<string, ItemDelObjeto>;
-
-console.log(objeto['elemento1'].type, objeto.elemento1.value.uno);
-console.log(objeto['otroElemento'].type, objeto['otroElemento'].value.tres);
+import { FormElement } from 'ngx-simple-forms';
+import { FormComponent } from 'ngx-simple-forms';
+import { InputParameters } from 'ngx-simple-forms';
+import { SelectParameters } from 'ngx-simple-forms';
+import { ButtonParameters } from 'ngx-simple-forms';
 
 @Component({
   selector: 'app-root',
@@ -59,16 +16,18 @@ export class AppComponent {
   changeInt = 0;
   loading = false;
 
-  fields: { [key: string]: FormElementsBase<any> } = {
-    name: {
+  elements = {
+    name: <FormElement<InputParameters>>{
       type: 'input',
       params: {
         label: 'Nombre',
         width: '50%',
       },
-      disabled: () => this.changeInt === 3 || this.loading,
+      disabled: () =>
+        this.changeInt === 3 ||
+        (this.form.elements['submit'].params as ButtonParameters).loading,
     },
-    lastname: {
+    lastname: <FormElement<InputParameters>>{
       type: 'input',
       params: {
         label: 'Apellido',
@@ -76,25 +35,17 @@ export class AppComponent {
       },
       hidden: () => {
         const condition = this.changeInt === 5;
-        const previousWidth = this.fields['name'].params.width;
 
-        if (condition) {
-          this.fields['name'].params.width = '100%';
-        } else {
-          this.fields['name'].params.width = '50%';
-        }
-
-        if (previousWidth !== this.fields['name'].params.width) {
-          this.fields[
-            'name'
-          ].componentRef?.changeDetectorRef?.detectChanges?.();
+        if (this.elements?.name?.params) {
+          this.elements.name.params.width = condition ? '100%' : '50%';
         }
 
         return condition;
       },
-      disabled: () => this.loading,
+      disabled: () =>
+        (this.form.elements['submit'].params as ButtonParameters).loading,
     },
-    country: {
+    country: <FormElement<SelectParameters>>{
       type: 'select',
       value: 'chi',
       params: {
@@ -107,9 +58,10 @@ export class AppComponent {
           { value: 'per', description: 'Peru' },
         ],
       },
-      disabled: () => this.loading,
+      disabled: () =>
+        (this.form.elements['submit'].params as ButtonParameters).loading,
     },
-    reset: {
+    reset: <FormElement<ButtonParameters>>{
       type: 'button',
       params: {
         text: 'Reiniciar',
@@ -118,9 +70,10 @@ export class AppComponent {
         type: 'button',
         color: 'accent',
       },
-      disabled: () => this.loading,
+      disabled: () =>
+        (this.form.elements['submit'].params as ButtonParameters).loading,
     },
-    submit: {
+    submit: <FormElement<ButtonParameters>>{
       type: 'button',
       params: {
         text: 'Enviar',
@@ -129,49 +82,16 @@ export class AppComponent {
         type: 'submit',
         color: 'primary',
         handle: async (form) => {
-          console.log('Enviado', form.value);
-          this.loading = true;
-          this.fields.submit.params.loading = true;
-          this.fields['submit'].params.loading = true;
+          this.elements.submit.params.loading = true;
+          this.elements.submit.params.loading = true;
         },
       },
-      disabled: () => this.loading,
+      disabled: () =>
+        (this.form.elements['submit'].params as ButtonParameters).loading,
     },
-  };
+  } satisfies Record<string, FormElement>;
 
-  constructor(private service: SimpleFormsService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    /* this.service.createDialogForm({
-      header: {
-        title: 'Formulario',
-        color: 'primary',
-      },
-      message: 'veamos si funciona el mensaje',
-      buttons: [{ text: 'Enviar', tooltip: '', color: 'primary' }],
-      fields: {
-        name: {
-          key: 'name',
-          type: 'input',
-          placeholder: 'Nombre',
-          label: 'Escribe el nombre',
-          hidden: () => false,
-        },
-        pokemon: {
-          key: 'pokemon',
-          type: 'remoteSelect',
-          placeholder: 'Pokemon',
-          label: 'Selecciona un pokemon',
-          hidden: () => false,
-          typeRemoteSelect: {
-            endpoint: 'https://pokeapi.co/api/v2/pokemon-species/',
-            resourcesPath: 'results',
-            itemValuePath: 'name',
-            itemDescriptionPath: 'name',
-            multiple: true,
-          },
-        },
-      },
-    }); */
-  }
+  ngOnInit(): void {}
 }

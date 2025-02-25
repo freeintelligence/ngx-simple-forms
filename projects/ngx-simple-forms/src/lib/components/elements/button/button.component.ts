@@ -1,17 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { BaseComponent } from '../base/base.component';
 import { ButtonParameters } from './button.parameters';
-import {
-  MatButton,
-  MatButtonModule,
-  MatFabButton,
-  MatIconButton,
-  MatMiniFabButton,
-} from '@angular/material/button';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -33,13 +27,20 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
 })
-export class ButtonComponent extends BaseComponent {
+export class ButtonComponent extends BaseComponent implements OnInit {
   @Input() override params: ButtonParameters = {};
   @Input() override formControl!: FormControl;
 
   public isDisabled = false;
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+    this.registerOnDisabledChange();
+    this.detectChangesWithSetterWidth();
+  }
+
+  private registerOnDisabledChange() {
     this.formControl.registerOnDisabledChange((isDisabled) => {
       this.isDisabled = isDisabled;
     });

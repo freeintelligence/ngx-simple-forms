@@ -4,9 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SimpleFormsModule } from 'ngx-simple-forms';
-import { InputComponent } from '../../projects/ngx-simple-forms/src/lib/components/fields/input/input.component';
-import { FormComponent } from '../../projects/ngx-simple-forms/src/lib/components/form/form.component';
+import { FormComponent } from 'ngx-simple-forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +12,6 @@ import { FormComponent } from '../../projects/ngx-simple-forms/src/lib/component
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SimpleFormsModule,
     FormComponent,
   ],
   providers: [],

@@ -6,8 +6,7 @@ import {
   ViewChildren,
   ViewContainerRef,
 } from '@angular/core';
-import { FormElement, getFormFieldComponentByType } from './form.fields';
-import { FormButtons } from './form.buttons';
+import { FormElement, getFormElementComponentByType } from './form.elements';
 import { KeyValue, KeyValuePipe, NgFor } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -20,11 +19,10 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class FormComponent {
   @Input() checkTimer = 0;
-  @Input() fields: { [key: string]: FormElement } = {};
-  @Input() buttons: { [key: string]: FormButtons } = {};
+  @Input() elements: { [key: string]: FormElement } = {};
 
-  @ViewChildren('dynamicComponentFieldContainer', { read: ViewContainerRef })
-  dynamicComponentFieldContainer!: QueryList<ViewContainerRef>;
+  @ViewChildren('dynamicComponentElementContainer', { read: ViewContainerRef })
+  dynamicComponentElementContainer!: QueryList<ViewContainerRef>;
 
   form: FormGroup = new FormGroup({});
 
@@ -40,24 +38,24 @@ export class FormComponent {
     this.detectChanges();
   }
 
-  private getFields() {
-    return Object.keys(this.fields).map((key, index) => {
-      return { key, field: this.fields[key], index };
+  private getElements() {
+    return Object.keys(this.elements).map((key, index) => {
+      return { key, element: this.elements[key], index };
     });
   }
 
   private createFormControls() {
-    this.getFields().forEach(({ key, field }) => {
-      const formControl = field.formControl ?? new FormControl();
+    this.getElements().forEach(({ key, element }) => {
+      const formControl = element.formControl ?? new FormControl();
 
       this.form.addControl(key, formControl);
-      field.formControl = formControl;
+      element.formControl = formControl;
     });
   }
 
   private createComponents() {
-    this.getFields().forEach(({ key, field, index }) => {
-      const container = this.dynamicComponentFieldContainer.get(index);
+    this.getElements().forEach(({ key, element, index }) => {
+      const container = this.dynamicComponentElementContainer.get(index);
 
       if (!container) {
         return;
@@ -65,17 +63,17 @@ export class FormComponent {
 
       container.clear();
 
-      const componentType = getFormFieldComponentByType(field.type);
+      const componentType = getFormElementComponentByType(element.type);
       const componentFactory =
         this.componentFactoryResolver.resolveComponentFactory(componentType);
       const componentRef = container.createComponent(componentFactory);
 
-      componentRef.instance.params = field.params;
+      componentRef.instance.params = element.params;
       componentRef.instance.formControl =
-        field.formControl ?? new FormControl();
+        element.formControl ?? new FormControl();
       componentRef.changeDetectorRef.detectChanges();
 
-      field.componentRef = componentRef;
+      element.componentRef = componentRef;
     });
   }
 
@@ -85,63 +83,71 @@ export class FormComponent {
     }
 
     setInterval(() => {
-      this.fnDisableFields();
+      this.fnDisableElements();
     }, this.checkTimer);
   }
 
   private createValueListener() {
-    this.getFields().forEach(({ field }) => {
-      field.formControl?.valueChanges.subscribe(() => {
-        field.value = field.formControl?.value;
+    this.getElements().forEach(({ element }) => {
+      element.formControl?.valueChanges.subscribe(() => {
+        element.value = element.formControl?.value;
       });
 
-      if (typeof field.value !== 'undefined') {
-        field.formControl?.setValue(field.value);
+      if (typeof element.value !== 'undefined') {
+        element.formControl?.setValue(element.value);
       }
     });
   }
 
   private createDisabledListener() {
-    this.fnDisableFields();
+    this.fnDisableElements();
 
     this.form.valueChanges.subscribe(() => {
-      this.fnDisableFields();
+      this.fnDisableElements();
     });
 
     this.form.statusChanges.subscribe(() => {
-      this.fnDisableFields();
+      this.fnDisableElements();
     });
   }
 
   private createHiddenListenerDefaultFn() {
-    this.getFields().forEach(({ field }) => {
-      if (typeof field.hidden !== 'undefined') {
+    const elements = this.getElements();
+
+    for (const data of elements) {
+      const element = data.element;
+
+      if (typeof element.hidden !== 'undefined') {
         return;
       }
 
-      field.hidden = () => false;
-    });
+      element.hidden = () => false;
+    }
   }
 
-  private fnDisableFields() {
-    this.getFields().forEach(({ field }) => {
-      if (typeof field.disabled !== 'function') {
+  private fnDisableElements() {
+    const elements = this.getElements();
+
+    for (const data of elements) {
+      const element = data.element;
+
+      if (typeof element.disabled !== 'function') {
         return;
       }
 
-      const disabled = field.disabled();
+      const disabled = element.disabled();
 
       if (disabled) {
-        field.formControl?.disable({ emitEvent: true, onlySelf: true });
+        element.formControl?.disable({ emitEvent: true, onlySelf: true });
       } else {
-        field.formControl?.enable({ emitEvent: true, onlySelf: true });
+        element.formControl?.enable({ emitEvent: true, onlySelf: true });
       }
-    });
+    }
   }
 
   public detectChanges() {
-    this.getFields().forEach(({ field }) => {
-      field.componentRef?.changeDetectorRef?.detectChanges?.();
+    this.getElements().forEach(({ element }) => {
+      element.componentRef?.changeDetectorRef?.detectChanges?.();
     });
   }
 
