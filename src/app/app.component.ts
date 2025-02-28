@@ -1,10 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { FormElement } from 'ngx-simple-forms';
 import { FormComponent } from 'ngx-simple-forms';
 import { InputParameters } from 'ngx-simple-forms';
 import { SelectParameters } from 'ngx-simple-forms';
 import { ButtonParameters } from 'ngx-simple-forms';
 
+type MainFormElements = {
+  name: FormElement<InputParameters>;
+  lastname: FormElement<InputParameters>;
+  country: FormElement<SelectParameters>;
+  reset: FormElement<ButtonParameters>;
+  submit: FormElement<ButtonParameters>;
+};
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,25 +22,45 @@ export class AppComponent {
   @ViewChild(FormComponent) form!: FormComponent;
 
   changeInt = 0;
-  loading = false;
 
-  elements = {
-    name: <FormElement<InputParameters>>{
+  elements: MainFormElements = {
+    name: {
       type: 'input',
       params: {
         label: 'Nombre',
         width: '50%',
       },
+      validators: [
+        [Validators.required, 'El nombre es obligatorio'],
+        [
+          Validators.minLength(3),
+          'La longitud mínima permitida es de 3 caracteres',
+        ],
+        [
+          Validators.maxLength(32),
+          'La longitud máxima permitida es de 32 caracteres',
+        ],
+      ],
       disabled: () =>
-        this.changeInt === 3 ||
-        (this.form.elements['submit'].params as ButtonParameters).loading,
+        this.changeInt === 3 || this.elements.submit.params.loading,
     },
-    lastname: <FormElement<InputParameters>>{
+    lastname: {
       type: 'input',
       params: {
         label: 'Apellido',
         width: '50%',
       },
+      validators: [
+        [Validators.required, 'El apellido es obligatorio'],
+        [
+          Validators.minLength(3),
+          'La longitud mínima permitida es de 3 caracteres',
+        ],
+        [
+          Validators.maxLength(32),
+          'La longitud máxima permitida es de 32 caracteres',
+        ],
+      ],
       hidden: () => {
         const condition = this.changeInt === 5;
 
@@ -42,10 +70,9 @@ export class AppComponent {
 
         return condition;
       },
-      disabled: () =>
-        (this.form.elements['submit'].params as ButtonParameters).loading,
+      disabled: () => this.elements.submit.params.loading,
     },
-    country: <FormElement<SelectParameters>>{
+    country: {
       type: 'select',
       value: 'chi',
       params: {
@@ -58,10 +85,9 @@ export class AppComponent {
           { value: 'per', description: 'Peru' },
         ],
       },
-      disabled: () =>
-        (this.form.elements['submit'].params as ButtonParameters).loading,
+      disabled: () => this.elements.submit.params.loading,
     },
-    reset: <FormElement<ButtonParameters>>{
+    reset: {
       type: 'button',
       params: {
         text: 'Reiniciar',
@@ -69,11 +95,13 @@ export class AppComponent {
         width: '50%',
         type: 'button',
         color: 'accent',
+        handle: async (form) => {
+          form.reset();
+        },
       },
-      disabled: () =>
-        (this.form.elements['submit'].params as ButtonParameters).loading,
+      disabled: () => this.elements.submit.params.loading,
     },
-    submit: <FormElement<ButtonParameters>>{
+    submit: {
       type: 'button',
       params: {
         text: 'Enviar',
@@ -82,14 +110,16 @@ export class AppComponent {
         type: 'submit',
         color: 'primary',
         handle: async (form) => {
-          this.elements.submit.params.loading = true;
+          if (form.invalid) {
+            return;
+          }
+
           this.elements.submit.params.loading = true;
         },
       },
-      disabled: () =>
-        (this.form.elements['submit'].params as ButtonParameters).loading,
+      disabled: () => this.elements.submit.params.loading,
     },
-  } satisfies Record<string, FormElement>;
+  };
 
   constructor() {}
 

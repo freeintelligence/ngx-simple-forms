@@ -51,7 +51,13 @@ export class ButtonComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    await this.params.handle(this.formControl.parent as FormGroup);
+    const parentForm = this.formControl.parent as FormGroup;
+
+    if (this.params.type === 'submit') {
+      parentForm.markAllAsTouched();
+    }
+
+    await this.params.handle(parentForm);
 
     this.formControl.setValue(this.formControl.value, {
       emitEvent: true,

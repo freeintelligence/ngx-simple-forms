@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, ValidatorFn } from '@angular/forms';
 import { BaseComponent } from '../elements/base/base.component';
 import { InputComponent } from '../elements/input/input.component';
 import { InputParameters } from '../elements/input/input.parameters';
@@ -8,12 +8,15 @@ import { ButtonComponent } from '../elements/button/button.component';
 import { ButtonParameters } from '../elements/button/button.parameters';
 import { ComponentRef } from '@angular/core';
 
-type BaseFormElement<T> = {
-  disabled?: () => boolean;
+export type BaseFormElementValidator = [ValidatorFn, string];
+
+export type BaseFormElement<T> = {
+  disabled?: () => boolean | undefined;
   hidden?: () => boolean;
   value?: unknown;
   formControl?: FormControl;
   componentRef?: ComponentRef<BaseComponent>;
+  validators?: BaseFormElementValidator[];
   params?: T;
 };
 

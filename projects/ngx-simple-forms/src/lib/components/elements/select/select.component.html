@@ -6,4 +6,10 @@
     <mat-option [value]="option.value">{{ option.description }}</mat-option>
     }
   </mat-select>
+
+  <mat-error
+    *ngIf="formControl.errors && (formControl.dirty || formControl.touched)"
+  >
+    {{ getErrorMessage() }}
+  </mat-error>
 </mat-form-field>

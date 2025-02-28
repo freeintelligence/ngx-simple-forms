@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   Input,
@@ -26,10 +27,14 @@ export class FormComponent {
 
   form: FormGroup = new FormGroup({});
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngAfterViewInit(): void {
     this.createFormControls();
+    this.createFormControlValidators();
     this.createComponents();
     this.createCheckTimer();
     this.createDisabledListener();
@@ -53,6 +58,21 @@ export class FormComponent {
     });
   }
 
+  private createFormControlValidators() {
+    this.getElements().forEach(({ key, element }) => {
+      if (!element.validators?.length) {
+        return;
+      }
+
+      const onlyValidators = element.validators.map(([validator]) => validator);
+
+      element.formControl?.setValidators(onlyValidators);
+      element.formControl?.updateValueAndValidity();
+    });
+
+    this.detectChanges();
+  }
+
   private createComponents() {
     this.getElements().forEach(({ key, element, index }) => {
       const container = this.dynamicComponentElementContainer.get(index);
@@ -71,6 +91,7 @@ export class FormComponent {
       componentRef.instance.params = element.params;
       componentRef.instance.formControl =
         element.formControl ?? new FormControl();
+      componentRef.instance.validators = element.validators ?? [];
       componentRef.changeDetectorRef.detectChanges();
 
       element.componentRef = componentRef;
@@ -135,7 +156,12 @@ export class FormComponent {
         return;
       }
 
+      const previous = element.formControl?.disabled;
       const disabled = element.disabled();
+
+      if (!!previous === !!disabled) {
+        continue;
+      }
 
       if (disabled) {
         element.formControl?.disable({ emitEvent: true, onlySelf: true });
@@ -145,10 +171,19 @@ export class FormComponent {
     }
   }
 
-  public detectChanges() {
-    this.getElements().forEach(({ element }) => {
-      element.componentRef?.changeDetectorRef?.detectChanges?.();
-    });
+  public detectChanges(
+    includeElements: boolean = true,
+    includeForm: boolean = true
+  ) {
+    if (includeElements) {
+      this.getElements().forEach(({ element }) => {
+        element.componentRef?.changeDetectorRef?.detectChanges?.();
+      });
+    }
+
+    if (includeForm) {
+      this.changeDetectorRef.detectChanges();
+    }
   }
 
   originalOrderFn = (

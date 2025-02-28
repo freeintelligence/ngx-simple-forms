@@ -8,4 +8,10 @@
     [name]="params.name || ''"
     [type]="params.type || 'text'"
   />
+
+  <mat-error
+    *ngIf="formControl.errors && (formControl.dirty || formControl.touched)"
+  >
+    {{ getErrorMessage() }}
+  </mat-error>
 </mat-form-field>

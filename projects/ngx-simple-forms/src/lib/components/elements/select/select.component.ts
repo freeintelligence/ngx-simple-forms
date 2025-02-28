@@ -6,6 +6,7 @@ import {
   MatLabel,
   MatOption,
   MatSelect,
+  MatSelectModule,
 } from '@angular/material/select';
 import { SelectParameters } from './select.parameters';
 import { BaseComponent } from '../base/base.component';
@@ -14,7 +15,7 @@ import { BaseComponent } from '../base/base.component';
   selector: 'ngx-simple-forms-select',
   standalone: true,
   imports: [
-    MatSelect,
+    MatSelectModule,
     NgIf,
     MatFormField,
     MatLabel,
