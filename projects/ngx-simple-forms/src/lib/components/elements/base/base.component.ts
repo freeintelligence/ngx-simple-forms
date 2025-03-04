@@ -22,7 +22,7 @@ export class BaseComponent implements OnInit {
   @Input() formControl!: FormControl;
   @Input() validators!: BaseFormElementValidator[];
 
-  public changeDetectorRef = inject(ChangeDetectorRef);
+  constructor(public changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
