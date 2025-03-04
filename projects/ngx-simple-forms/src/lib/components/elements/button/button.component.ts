@@ -37,7 +37,6 @@ export class ButtonComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
 
     this.registerOnDisabledChange();
-    this.detectChangesWithSetterWidth();
   }
 
   private registerOnDisabledChange() {

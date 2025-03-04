@@ -1,8 +1,4 @@
-<div
-  class="button-container"
-  [style.width]="params.width || '100%'"
-  [ngSwitch]="params.variant"
->
+<div class="button-container" [ngSwitch]="params.variant">
   <!-- mat-raised-button -->
   <button
     *ngSwitchCase="'raised'"

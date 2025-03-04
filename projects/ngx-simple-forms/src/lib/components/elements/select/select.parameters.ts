@@ -3,6 +3,5 @@ export interface SelectParameters {
   name?: string;
   type?: string;
   placeholder?: string;
-  width?: string;
   options?: { value: string; description: string }[];
 }

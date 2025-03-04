@@ -12,7 +12,6 @@ type ButtonVariant =
 type ButtonColor = 'primary' | 'accent' | 'warn';
 
 export interface ButtonParameters {
-  width?: string;
   text?: string;
   type?: 'submit' | 'button';
   variant?: ButtonVariant;

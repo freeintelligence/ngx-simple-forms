@@ -23,12 +23,16 @@ export class AppComponent {
 
   changeInt = 0;
 
+  defaultStyles: Partial<CSSStyleDeclaration> = {};
+
   elements: MainFormElements = {
     name: {
       type: 'input',
+      styles: {
+        width: '30%',
+      },
       params: {
         label: 'Nombre',
-        width: '50%',
       },
       validators: [
         [Validators.required, 'El nombre es obligatorio'],
@@ -46,9 +50,11 @@ export class AppComponent {
     },
     lastname: {
       type: 'input',
+      styles: {
+        width: '70%',
+      },
       params: {
         label: 'Apellido',
-        width: '50%',
       },
       validators: [
         [Validators.required, 'El apellido es obligatorio'],
@@ -64,8 +70,8 @@ export class AppComponent {
       hidden: () => {
         const condition = this.changeInt === 5;
 
-        if (this.elements?.name?.params) {
-          this.elements.name.params.width = condition ? '100%' : '50%';
+        if (this.elements.name.styles) {
+          this.elements.name.styles.width = condition ? '100%' : '30%';
         }
 
         return condition;
@@ -74,7 +80,10 @@ export class AppComponent {
     },
     country: {
       type: 'select',
-      value: 'chi',
+      styles: {
+        width: '100%',
+      },
+      validators: [[Validators.required, 'El país es obligatorio']],
       params: {
         label: 'País',
         options: [
@@ -89,10 +98,12 @@ export class AppComponent {
     },
     reset: {
       type: 'button',
+      styles: {
+        width: '50%',
+      },
       params: {
         text: 'Reiniciar',
         variant: 'basic',
-        width: '50%',
         type: 'button',
         color: 'accent',
         handle: async (form) => {
@@ -103,10 +114,12 @@ export class AppComponent {
     },
     submit: {
       type: 'button',
+      styles: {
+        width: '50%',
+      },
       params: {
         text: 'Enviar',
         variant: 'flat',
-        width: '50%',
         type: 'submit',
         color: 'primary',
         handle: async (form) => {
@@ -117,7 +130,8 @@ export class AppComponent {
           this.elements.submit.params.loading = true;
         },
       },
-      disabled: () => this.elements.submit.params.loading,
+      disabled: () =>
+        this.elements.submit.params.loading || this.form?.form?.invalid,
     },
   };
 

@@ -18,6 +18,7 @@ export type BaseFormElement<T> = {
   componentRef?: ComponentRef<BaseComponent>;
   validators?: BaseFormElementValidator[];
   params?: T;
+  styles?: Partial<CSSStyleDeclaration>;
 };
 
 export type FormElement<T = unknown> =

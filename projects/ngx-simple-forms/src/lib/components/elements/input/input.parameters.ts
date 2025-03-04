@@ -1,6 +1,5 @@
 export interface InputParameters {
   label?: string;
-  name?: string;
   type?:
     | 'button'
     | 'checkbox'
@@ -25,5 +24,4 @@ export interface InputParameters {
     | 'url'
     | 'week';
   placeholder?: string;
-  width?: string;
 }

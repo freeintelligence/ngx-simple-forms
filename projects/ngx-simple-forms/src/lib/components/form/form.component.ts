@@ -8,19 +8,21 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { FormElement, getFormElementComponentByType } from './form.elements';
-import { KeyValue, KeyValuePipe, NgFor } from '@angular/common';
+import { KeyValue, KeyValuePipe, NgFor, NgStyle } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { addGetterSetter } from '../../utils';
 
 @Component({
   selector: 'ngx-simple-forms-form',
   standalone: true,
-  imports: [NgFor, KeyValuePipe, ReactiveFormsModule],
+  imports: [NgFor, KeyValuePipe, ReactiveFormsModule, NgStyle],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
 })
 export class FormComponent {
   @Input() checkTimer = 0;
   @Input() elements: { [key: string]: FormElement } = {};
+  @Input() defaultStyles: Partial<CSSStyleDeclaration> = {};
 
   @ViewChildren('dynamicComponentElementContainer', { read: ViewContainerRef })
   dynamicComponentElementContainer!: QueryList<ViewContainerRef>;
@@ -35,6 +37,8 @@ export class FormComponent {
   ngAfterViewInit(): void {
     this.createFormControls();
     this.createFormControlValidators();
+    this.mergeStyles();
+    this.stylesListener();
     this.createComponents();
     this.createCheckTimer();
     this.createDisabledListener();
@@ -71,6 +75,47 @@ export class FormComponent {
     });
 
     this.detectChanges();
+  }
+
+  private mergeStyles() {
+    const baseStyles: Partial<CSSStyleDeclaration> = {
+      padding: '12px',
+    };
+
+    const baseWithDefaultStyles = { ...baseStyles, ...this.defaultStyles };
+
+    this.getElements().forEach(({ element, key }) => {
+      if (typeof element.styles === 'undefined') {
+        element.styles = { ...baseWithDefaultStyles };
+
+        return;
+      }
+
+      const elementWithBaseWithDefaultStyles = {
+        ...baseWithDefaultStyles,
+        ...element.styles,
+      };
+
+      element.styles = elementWithBaseWithDefaultStyles;
+    });
+
+    this.changeDetectorRef.detectChanges();
+  }
+  private stylesListener() {
+    this.getElements().forEach(({ element }) => {
+      addGetterSetter<Partial<CSSStyleDeclaration>>(
+        element,
+        'styles',
+        (oldValue, newValue) => {
+          if (oldValue === newValue) {
+            return;
+          }
+
+          this.changeDetectorRef.detectChanges();
+        },
+        true
+      );
+    });
   }
 
   private createComponents() {

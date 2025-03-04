@@ -26,16 +26,6 @@ export class BaseComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  protected detectChangesWithSetterWidth() {
-    addGetterSetter<string>(this.params, 'width', (oldValue, newValue) => {
-      if (oldValue === newValue) {
-        return;
-      }
-
-      this.changeDetectorRef.detectChanges();
-    });
-  }
-
   protected getErrorMessage(): string {
     for (const current of this.validators) {
       const validator = current[0];

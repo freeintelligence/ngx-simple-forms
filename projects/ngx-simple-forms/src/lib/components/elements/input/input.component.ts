@@ -18,7 +18,5 @@ export class InputComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-
-    this.detectChangesWithSetterWidth();
   }
 }
