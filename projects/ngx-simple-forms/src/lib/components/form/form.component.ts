@@ -199,7 +199,7 @@ export class FormComponent {
       const element = data.element;
 
       if (typeof element.disabled !== 'function') {
-        return;
+        continue;
       }
 
       const previous = element.formControl?.disabled;
