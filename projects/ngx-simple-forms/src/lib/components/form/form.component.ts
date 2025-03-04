@@ -101,6 +101,7 @@ export class FormComponent {
 
     this.changeDetectorRef.detectChanges();
   }
+
   private stylesListener() {
     this.getElements().forEach(({ element }) => {
       addGetterSetter<Partial<CSSStyleDeclaration>>(

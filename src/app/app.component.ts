@@ -76,7 +76,9 @@ export class AppComponent {
 
         return condition;
       },
-      disabled: () => this.elements.submit.params.loading,
+      disabled: () =>
+        this.elements.submit.params.loading ||
+        this.elements.lastname.hidden?.(),
     },
     country: {
       type: 'select',
@@ -130,8 +132,10 @@ export class AppComponent {
           this.elements.submit.params.loading = true;
         },
       },
-      disabled: () =>
-        this.elements.submit.params.loading || this.form?.form?.invalid,
+      disabled: () => {
+        console.log('formulario invalido', this.form?.form?.invalid);
+        return this.elements.submit.params.loading || this.form?.form?.invalid;
+      },
     },
   };
 
