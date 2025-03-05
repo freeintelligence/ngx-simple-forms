@@ -10,7 +10,7 @@ import {
 import { FormElement, getFormElementComponentByType } from './form.elements';
 import { KeyValue, KeyValuePipe, NgFor, NgStyle } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { addGetterSetter } from '../../utils';
+import { addGetterSetter, deepClone } from '../../utils';
 
 @Component({
   selector: 'ngx-simple-forms-form',
@@ -22,6 +22,7 @@ import { addGetterSetter } from '../../utils';
 export class FormComponent {
   @Input() checkTimer = 0;
   @Input() elements: { [key: string]: FormElement } = {};
+  @Input() cloneElements = false;
   @Input() defaultStyles: Partial<CSSStyleDeclaration> = {};
 
   @ViewChildren('dynamicComponentElementContainer', { read: ViewContainerRef })
@@ -35,6 +36,7 @@ export class FormComponent {
   ) {}
 
   ngAfterViewInit(): void {
+    this.cloneElementsIfNeeded();
     this.createFormControls();
     this.createFormControlValidators();
     this.mergeStyles();
@@ -45,6 +47,14 @@ export class FormComponent {
     this.createValueListener();
     this.createHiddenListenerDefaultFn();
     this.detectChanges();
+  }
+
+  private cloneElementsIfNeeded() {
+    if (!this.cloneElements) {
+      return;
+    }
+
+    this.elements = deepClone(this.elements);
   }
 
   private getElements() {
