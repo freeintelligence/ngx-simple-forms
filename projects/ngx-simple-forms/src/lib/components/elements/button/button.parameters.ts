@@ -11,11 +11,17 @@ type ButtonVariant =
 
 type ButtonColor = 'primary' | 'accent' | 'warn';
 
-export interface ButtonParameters {
+export interface ButtonParametersHandleData<HandleExtraData> {
+  group: FormGroup;
+  extra?: HandleExtraData;
+}
+
+export interface ButtonParameters<HandleExtraData = unknown> {
   text?: string;
   type?: 'submit' | 'button';
   variant?: ButtonVariant;
   color?: ButtonColor;
   loading?: boolean;
-  handle?: (form: FormGroup) => Promise<void>;
+  getExtra?: () => HandleExtraData;
+  handle?: (data: ButtonParametersHandleData<HandleExtraData>) => Promise<void>;
 }

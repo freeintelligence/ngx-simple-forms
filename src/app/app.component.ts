@@ -109,8 +109,8 @@ export class AppComponent {
         variant: 'basic',
         type: 'button',
         color: 'accent',
-        handle: async (form) => {
-          form.reset();
+        handle: async ({ group }) => {
+          group.reset();
         },
       },
       disabled: () => this.elements.submit.params.loading,
@@ -125,10 +125,10 @@ export class AppComponent {
         variant: 'flat',
         type: 'submit',
         color: 'primary',
-        handle: async (form) => {
-          console.log('Se envia el formulario', form);
+        handle: async ({ group }) => {
+          console.log('Se envia el formulario', group);
 
-          if (form.invalid) {
+          if (group.invalid) {
             return;
           }
 
@@ -136,7 +136,7 @@ export class AppComponent {
         },
       },
       disabled: () => {
-        return this.elements.submit.params.loading || this.form?.form?.invalid;
+        return this.elements.submit.params.loading || this.form?.group?.invalid;
       },
     },
     openDialog: {
@@ -151,12 +151,14 @@ export class AppComponent {
         color: 'warn',
         handle: async () => {
           const dialog = this.dialogService.open({
-            title: 'Formulario en diálogo',
+            title: {
+              text: 'Formulario en diálogo',
+            },
             description: {
               text: 'Este es un formulario en diálogo destinado para probar el componente de otra forma.',
               styles: {
-                color: 'red'
-              }
+                color: 'red',
+              },
             },
             checkTimer: 256,
             elements: {
@@ -201,8 +203,8 @@ export class AppComponent {
                   variant: 'raised',
                   text: 'Crear',
                   type: 'submit',
-                  handle: async (form) => {
-                    if (form.invalid) {
+                  handle: async ({ group }) => {
+                    if (group.invalid) {
                       return;
                     }
 
