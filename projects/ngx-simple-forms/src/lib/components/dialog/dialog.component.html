@@ -1,9 +1,14 @@
 <mat-dialog-content class="mat-typography">
   <mat-toolbar *ngIf="parameters.title" [color]="parameters.color">
-    <span>{{ parameters.title }}</span>
+    <h2>{{ parameters.title }}</h2>
   </mat-toolbar>
 
-  <p *ngIf="parameters.description">{{ parameters.description }}</p>
+  <p
+    *ngIf="parameters.description?.text"
+    [ngStyle]="parameters.description?.styles || {}"
+  >
+    {{ parameters.description?.text }}
+  </p>
 
   <ngx-simple-forms-form
     [checkTimer]="256"

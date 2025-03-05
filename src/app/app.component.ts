@@ -152,8 +152,12 @@ export class AppComponent {
         handle: async () => {
           const dialog = this.dialogService.open({
             title: 'Formulario en diálogo',
-            description:
-              'Este es un formulario en diálogo destinado para probar el componente de otra forma.',
+            description: {
+              text: 'Este es un formulario en diálogo destinado para probar el componente de otra forma.',
+              styles: {
+                color: 'red'
+              }
+            },
             checkTimer: 256,
             elements: {
               name: {

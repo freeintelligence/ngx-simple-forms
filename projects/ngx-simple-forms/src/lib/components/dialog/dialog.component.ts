@@ -7,12 +7,12 @@ import {
 } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DialogParameters } from './dialog.parameters';
-import { NgIf } from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'ngx-simple-forms-dialog',
   standalone: true,
-  imports: [FormComponent, MatDialogModule, MatToolbarModule, NgIf],
+  imports: [FormComponent, MatDialogModule, MatToolbarModule, NgIf, NgStyle],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css',
 })
