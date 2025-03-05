@@ -13,3 +13,7 @@ export * from './lib/components/elements/select/select.component';
 export * from './lib/components/elements/select/select.parameters';
 export * from './lib/components/elements/button/button.component';
 export * from './lib/components/elements/button/button.parameters';
+
+export * from './lib/components/dialog/dialog.component';
+export * from './lib/components/dialog/dialog.parameters';
+export * from './lib/components/dialog/dialog.service';
