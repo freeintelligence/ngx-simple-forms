@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { FormComponent } from '../form/form.component';
 import {
   MAT_DIALOG_DATA,
@@ -17,6 +17,8 @@ import { NgIf, NgStyle } from '@angular/common';
   styleUrl: './dialog.component.css',
 })
 export class DialogComponent {
+  @ViewChild(FormComponent) form!: FormComponent;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public parameters: DialogParameters,
     public dialogRef: MatDialogRef<DialogComponent>

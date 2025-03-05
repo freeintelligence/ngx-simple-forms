@@ -27,7 +27,7 @@ export class FormComponent {
   @ViewChildren('dynamicComponentElementContainer', { read: ViewContainerRef })
   dynamicComponentElementContainer!: QueryList<ViewContainerRef>;
 
-  form: FormGroup = new FormGroup({});
+  group: FormGroup = new FormGroup({});
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -57,7 +57,7 @@ export class FormComponent {
     this.getElements().forEach(({ key, element }) => {
       const formControl = element.formControl ?? new FormControl();
 
-      this.form.addControl(key, formControl);
+      this.group.addControl(key, formControl);
       element.formControl = formControl;
     });
   }
@@ -169,11 +169,11 @@ export class FormComponent {
   private createDisabledListener() {
     this.fnDisableElements();
 
-    this.form.valueChanges.subscribe(() => {
+    this.group.valueChanges.subscribe(() => {
       this.fnDisableElements();
     });
 
-    this.form.statusChanges.subscribe(() => {
+    this.group.statusChanges.subscribe(() => {
       this.fnDisableElements();
     });
   }

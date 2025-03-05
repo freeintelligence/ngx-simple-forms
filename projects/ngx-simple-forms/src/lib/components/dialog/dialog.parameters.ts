@@ -1,10 +1,12 @@
 import { FormElement } from '../form/form.elements';
 
 export interface DialogParameters {
-  title?: string;
-  color?: 'primary' | 'accent' | 'warn';
+  title?: {
+    text?: string;
+    color?: 'primary' | 'accent' | 'warn';
+  };
   description?: {
-    text: string;
+    text?: string;
     styles?: Partial<CSSStyleDeclaration>;
   };
   checkTimer?: number;

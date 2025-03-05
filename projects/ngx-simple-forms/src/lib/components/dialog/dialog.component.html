@@ -1,6 +1,6 @@
 <mat-dialog-content class="mat-typography">
-  <mat-toolbar *ngIf="parameters.title" [color]="parameters.color">
-    <h2>{{ parameters.title }}</h2>
+  <mat-toolbar *ngIf="parameters.title?.text" [color]="parameters.title?.color">
+    <h2>{{ parameters.title?.text }}</h2>
   </mat-toolbar>
 
   <p
