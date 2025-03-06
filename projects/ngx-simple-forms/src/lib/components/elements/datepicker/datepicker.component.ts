@@ -5,8 +5,8 @@ import { BaseComponent } from '../base/base.component';
 import { DatepickerParameters } from './datepicker.parameters';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'ngx-simple-forms-datepicker',
@@ -18,9 +18,9 @@ import { MatInputModule } from '@angular/material/input';
     MatError,
     ReactiveFormsModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatInputModule,
   ],
-  providers: [provideNativeDateAdapter()],
   templateUrl: './datepicker.component.html',
   styleUrl: './datepicker.component.css',
 })
