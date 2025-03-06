@@ -1,14 +1,12 @@
 import {
   ChangeDetectorRef,
   Component,
-  inject,
   Injector,
   Input,
   OnInit,
 } from '@angular/core';
-import { FormControl, ValidatorFn } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { BaseParameters } from './base.parameters';
-import { addGetterSetter } from '../../../utils';
 import { BaseFormElementValidator } from '../../form/form.elements';
 
 @Component({
