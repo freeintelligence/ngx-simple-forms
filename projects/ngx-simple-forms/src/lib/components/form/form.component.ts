@@ -1,7 +1,6 @@
 import {
   ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver,
   Input,
   QueryList,
   ViewChildren,
@@ -30,10 +29,7 @@ export class FormComponent {
 
   group: FormGroup = new FormGroup({});
 
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.cloneElementsIfNeeded();
@@ -140,9 +136,7 @@ export class FormComponent {
       container.clear();
 
       const componentType = getFormElementComponentByType(element.type);
-      const componentFactory =
-        this.componentFactoryResolver.resolveComponentFactory(componentType);
-      const componentRef = container.createComponent(componentFactory);
+      const componentRef = container.createComponent(componentType);
 
       componentRef.instance.params = element.params;
       componentRef.instance.formControl =
