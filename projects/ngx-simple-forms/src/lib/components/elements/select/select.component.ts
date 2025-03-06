@@ -5,7 +5,6 @@ import {
   MatFormField,
   MatLabel,
   MatOption,
-  MatSelect,
   MatSelectModule,
 } from '@angular/material/select';
 import { SelectParameters } from './select.parameters';

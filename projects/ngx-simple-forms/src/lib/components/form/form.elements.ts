@@ -7,6 +7,8 @@ import { SelectParameters } from '../elements/select/select.parameters';
 import { ButtonComponent } from '../elements/button/button.component';
 import { ButtonParameters } from '../elements/button/button.parameters';
 import { ComponentRef } from '@angular/core';
+import { DatepickerParameters } from '../elements/datepicker/datepicker.parameters';
+import { DatepickerComponent } from '../elements/datepicker/datepicker.component';
 
 export type BaseFormElementValidator = [ValidatorFn, string];
 
@@ -24,7 +26,8 @@ export type BaseFormElement<T> = {
 export type FormElement<T = unknown> =
   | (BaseFormElement<T> & { type: 'input'; params: InputParameters })
   | (BaseFormElement<T> & { type: 'select'; params: SelectParameters })
-  | (BaseFormElement<T> & { type: 'button'; params: ButtonParameters });
+  | (BaseFormElement<T> & { type: 'button'; params: ButtonParameters })
+  | (BaseFormElement<T> & { type: 'datepicker'; params: DatepickerParameters });
 
 export function getFormElementComponentByType(
   type: string
@@ -33,6 +36,7 @@ export function getFormElementComponentByType(
     input: InputComponent,
     select: SelectComponent,
     button: ButtonComponent,
+    datepicker: DatepickerComponent,
   };
 
   return typesComponent[type];

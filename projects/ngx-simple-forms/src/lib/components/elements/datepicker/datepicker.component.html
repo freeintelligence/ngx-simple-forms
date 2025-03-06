@@ -1,0 +1,14 @@
+<mat-form-field>
+  <mat-label *ngIf="params.label">{{ params.label }}</mat-label>
+
+  <input matInput [matDatepicker]="picker" [formControl]="formControl" />
+
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+
+  <mat-error
+    *ngIf="formControl.errors && (formControl.dirty || formControl.touched)"
+  >
+    {{ getErrorMessage() }}
+  </mat-error>
+</mat-form-field>

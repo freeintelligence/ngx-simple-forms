@@ -1,15 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { DialogService, FormElement } from 'ngx-simple-forms';
-import { FormComponent } from 'ngx-simple-forms';
-import { InputParameters } from 'ngx-simple-forms';
-import { SelectParameters } from 'ngx-simple-forms';
-import { ButtonParameters } from 'ngx-simple-forms';
+import {
+  DatepickerParameters,
+  DialogService,
+  FormElement,
+  FormComponent,
+  InputParameters,
+  SelectParameters,
+  ButtonParameters,
+} from 'ngx-simple-forms';
 
 type MainFormElements = {
   name: FormElement<InputParameters>;
   lastname: FormElement<InputParameters>;
   country: FormElement<SelectParameters>;
+  date: FormElement<DatepickerParameters>;
   reset: FormElement<ButtonParameters>;
   submit: FormElement<ButtonParameters>;
   openDialog: FormElement<ButtonParameters>;
@@ -98,6 +103,14 @@ export class AppComponent {
         ],
       },
       disabled: () => this.elements.submit.params.loading,
+    },
+    date: {
+      type: 'datepicker',
+      params: {
+        label: 'Fecha exclusiva',
+        placeholder: 'Con placeholder',
+      },
+      validators: [[Validators.required, 'La fecha es obligatoria']],
     },
     reset: {
       type: 'button',
@@ -224,7 +237,7 @@ export class AppComponent {
     },
   };
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private readonly dialogService: DialogService) {}
 
   ngOnInit(): void {}
 }
