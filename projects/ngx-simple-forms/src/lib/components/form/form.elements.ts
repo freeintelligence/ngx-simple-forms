@@ -9,6 +9,8 @@ import { ButtonParameters } from '../elements/button/button.parameters';
 import { ComponentRef } from '@angular/core';
 import { DatepickerParameters } from '../elements/datepicker/datepicker.parameters';
 import { DatepickerComponent } from '../elements/datepicker/datepicker.component';
+import { RemoteSelectParameters } from '../elements/remote-select/remote-select.parameters';
+import { RemoteSelectComponent } from '../elements/remote-select/remote-select.component';
 
 export type BaseFormElementValidator = [ValidatorFn, string];
 
@@ -27,7 +29,11 @@ export type FormElement<T = unknown> =
   | (BaseFormElement<T> & { type: 'input'; params: InputParameters })
   | (BaseFormElement<T> & { type: 'select'; params: SelectParameters })
   | (BaseFormElement<T> & { type: 'button'; params: ButtonParameters })
-  | (BaseFormElement<T> & { type: 'datepicker'; params: DatepickerParameters });
+  | (BaseFormElement<T> & { type: 'datepicker'; params: DatepickerParameters })
+  | (BaseFormElement<T> & {
+      type: 'remote-select';
+      params: RemoteSelectParameters;
+    });
 
 export function getFormElementComponentByType(
   type: string
@@ -37,6 +43,7 @@ export function getFormElementComponentByType(
     select: SelectComponent,
     button: ButtonComponent,
     datepicker: DatepickerComponent,
+    'remote-select': RemoteSelectComponent,
   };
 
   return typesComponent[type];

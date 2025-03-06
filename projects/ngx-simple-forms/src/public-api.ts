@@ -20,6 +20,9 @@ export * from './lib/components/elements/button/button.parameters';
 export * from './lib/components/elements/datepicker/datepicker.component';
 export * from './lib/components/elements/datepicker/datepicker.parameters';
 
+export * from './lib/components/elements/remote-select/remote-select.component';
+export * from './lib/components/elements/remote-select/remote-select.parameters';
+
 export * from './lib/components/dialog/dialog.component';
 export * from './lib/components/dialog/dialog.parameters';
 export * from './lib/components/dialog/dialog.service';

@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
+  Injector,
   Input,
   OnInit,
 } from '@angular/core';
@@ -22,7 +23,10 @@ export class BaseComponent implements OnInit {
   @Input() formControl!: FormControl;
   @Input() validators!: BaseFormElementValidator[];
 
-  constructor(public changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    public changeDetectorRef: ChangeDetectorRef,
+    public injector: Injector
+  ) {}
 
   ngOnInit(): void {}
 

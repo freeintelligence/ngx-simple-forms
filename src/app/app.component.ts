@@ -8,11 +8,13 @@ import {
   InputParameters,
   SelectParameters,
   ButtonParameters,
+  RemoteSelectParameters,
 } from 'ngx-simple-forms';
 
 type MainFormElements = {
   name: FormElement<InputParameters>;
   lastname: FormElement<InputParameters>;
+  remoteCountry: FormElement<RemoteSelectParameters>;
   country: FormElement<SelectParameters>;
   date: FormElement<DatepickerParameters>;
   reset: FormElement<ButtonParameters>;
@@ -101,6 +103,26 @@ export class AppComponent {
           { value: 'chi', description: 'Chile' },
           { value: 'per', description: 'Peru' },
         ],
+      },
+      disabled: () => this.elements.submit.params.loading,
+    },
+    remoteCountry: {
+      type: 'remote-select',
+      styles: {
+        width: '100%',
+      },
+      validators: [[Validators.required, 'El país remoto es obligatorio']],
+      params: {
+        label: 'País remoto',
+        service: {
+          url: () => `https://restcountries.com/v3.1/all`,
+          method: 'GET',
+          keys: {
+            value: 'cca3',
+            description: 'name.common',
+          },
+        },
+        defaultOptions: [{ description: 'Todos' }],
       },
       disabled: () => this.elements.submit.params.loading,
     },
