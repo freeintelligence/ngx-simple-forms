@@ -20,6 +20,9 @@ type MainFormElements = {
   reset: FormElement<ButtonParameters>;
   submit: FormElement<ButtonParameters>;
   openDialog: FormElement<ButtonParameters>;
+  withTooltip1: FormElement<ButtonParameters>;
+  withTooltip2: FormElement<ButtonParameters>;
+  withTooltip3: FormElement<ButtonParameters>;
 };
 @Component({
   selector: 'app-root',
@@ -148,13 +151,6 @@ export class AppComponent {
           group.reset();
         },
       },
-      tooltip: {
-        message: `    <div style="width: 256px; background-color: red;">
-      <span>Codigo de ejemplo</span>
-    </div>`,
-        position: 'above',
-        withHtml: true,
-      },
       disabled: () => this.elements.submit.params.loading,
     },
     submit: {
@@ -262,6 +258,54 @@ export class AppComponent {
             defaultStyles: {},
           });
         },
+      },
+    },
+    withTooltip1: {
+      type: 'button',
+      params: {
+        text: 'Tooltip 1',
+        variant: 'flat',
+        color: 'accent',
+      },
+      tooltip: {
+        message: `    <div style="width: 256px;">
+      <span>Codigo de ejemplo</span>
+    </div>`,
+        withHtml: true,
+        hideDelay: 0,
+        showDelay: 0,
+      },
+    },
+    withTooltip2: {
+      type: 'button',
+      params: {
+        text: 'Tooltip 1',
+        variant: 'flat',
+        color: 'accent',
+      },
+      tooltip: {
+        message: `    <div style="width: 256px;">
+      <span>Codigo de ejemplo</span>
+    </div>`,
+        withHtml: true,
+        hideDelay: 0,
+        showDelay: 0,
+      },
+    },
+    withTooltip3: {
+      type: 'button',
+      params: {
+        text: 'Tooltip 1',
+        variant: 'flat',
+        color: 'accent',
+      },
+      tooltip: {
+        message: `    <div style="width: 256px;">
+      <span>Codigo de ejemplo</span>
+    </div>`,
+        withHtml: true,
+        hideDelay: 0,
+        showDelay: 0,
       },
     },
   };

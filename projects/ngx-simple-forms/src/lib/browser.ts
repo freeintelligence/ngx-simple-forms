@@ -38,31 +38,34 @@ export function interceptMatTooltipsMessage() {
 
   Object.defineProperty(TooltipComponent.prototype, 'message', {
     set(v: any) {
-      const elmSurface = document.querySelector(
-        '.mdc-tooltip__surface'
-      ) as HTMLElement;
-      const elmTooltip = elmSurface?.parentElement as HTMLElement;
-      const withHtml = (elmTooltip as any).withHtml;
+      const elmSurfaces = document.querySelectorAll('.mdc-tooltip__surface');
 
-      if (!elmSurface || !elmTooltip) {
-        return;
-      }
+      elmSurfaces.forEach((tmp) => {
+        const elmSurface = tmp as HTMLElement;
+        const elmTooltip = elmSurface?.parentElement as HTMLElement;
 
-      if ((elmTooltip as any).isObserved) {
-        if (withHtml) {
-          elmSurface.innerHTML = v;
-        } else {
-          elmSurface.innerText = v;
+        if (!elmSurface || !elmTooltip) {
+          return;
         }
-      } else {
-        observer.observe(elmTooltip, {
-          attributeFilter: ['class'],
-          attributeOldValue: true,
-        });
-      }
 
-      (elmTooltip as any).originalValue = v;
-      (elmTooltip as any).isObserved = true;
+        const withHtml = (elmTooltip as any).withHtml;
+
+        if ((elmTooltip as any).isObserved) {
+          if (withHtml) {
+            elmSurface.innerHTML = v;
+          } else {
+            elmSurface.innerText = v;
+          }
+        } else {
+          observer.observe(elmTooltip, {
+            attributeFilter: ['class'],
+            attributeOldValue: true,
+          });
+        }
+
+        (elmTooltip as any).originalValue = v;
+        (elmTooltip as any).isObserved = true;
+      });
     },
   });
 }
