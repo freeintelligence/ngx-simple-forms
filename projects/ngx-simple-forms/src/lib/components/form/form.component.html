@@ -5,7 +5,7 @@
       [style.display]="element.value.hidden?.() ? 'none' : 'inline-block'"
       [ngStyle]="element.value.styles"
       [matTooltipDisabled]="element.value.tooltip?.disabled"
-      [matTooltipHideDelay]="9999999999999999"
+      [matTooltipHideDelay]="element.value.tooltip?.hideDelay"
       [matTooltip]="element.value.tooltip?.message || ''"
       [matTooltipPosition]="element.value.tooltip?.position || 'above'"
       [matTooltipPositionAtOrigin]="element.value.tooltip?.positionAtOrigin"
@@ -18,6 +18,12 @@
           : 'ngx-simple-forms__tooltip-no-html'
       ]"
       [matTooltipTouchGestures]="element.value.tooltip?.touchGestures || 'auto'"
+      (mouseover)="element.value.onMouseOver?.($event)"
+      (mouseout)="element.value.onMouseOut?.($event)"
+      (click)="element.value.onClick?.($event)"
+      (keypress)="element.value.onKeyPress?.($event)"
+      (focus)="element.value.onFocus?.($event)"
+      (blur)="element.value.onBlur?.($event)"
     >
       <ng-container #dynamicComponentElementContainer></ng-container>
     </div>

@@ -2,19 +2,9 @@ form.ngx-simple-forms__form {
   width: 100%;
 }
 
-.ngx-simple-forms__form.element-container {
+div.ngx-simple-forms__form.element-container {
   width: 100%;
   box-sizing: border-box;
-}
-
-.ngx-simple-forms__tooltip-default {
-}
-
-.ngx-simple-forms__tooltip-default p,
-.ngx-simple-forms__tooltip-default ul {
-  margin: 0 !important;
-  padding: 0 !important;
-  list-style: none;
 }
 
 .ngx-simple-forms__tooltip-default .mdc-tooltip__surface {

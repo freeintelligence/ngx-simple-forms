@@ -48,9 +48,12 @@ export type BaseFormElement<Params, GetOnExtra = DefaultGetOnExtra> = {
   params?: Params;
   tooltip?: BaseFormElementTooltip;
   styles?: Partial<CSSStyleDeclaration>;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  onClick?: () => void;
+  onMouseOver?: (event: Event) => void;
+  onMouseOut?: (event: Event) => void;
+  onClick?: (event: Event) => void;
+  onKeyPress?: (event: KeyboardEvent) => void;
+  onFocus?: (event: Event) => void;
+  onBlur?: (event: Event) => void;
   getOnExtra?: () => GetOnExtra;
 };
 

@@ -12,8 +12,6 @@ export function callbackObserveMatTooltips(mutationsList: MutationRecord[]) {
         'ngx-simple-forms__tooltip-with-html'
       );
 
-      console.log('withHtml', withHtml);
-
       if (!elmSurface || !elmTooltip) {
         return;
       }

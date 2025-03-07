@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { TooltipComponent } from '@angular/material/tooltip';
 import {
   DatepickerParameters,
   DialogService,
@@ -268,6 +267,4 @@ export class AppComponent {
   };
 
   constructor(private readonly dialogService: DialogService) {}
-
-  ngOnInit(): void {}
 }
