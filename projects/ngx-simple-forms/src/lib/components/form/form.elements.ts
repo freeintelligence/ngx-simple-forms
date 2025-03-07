@@ -12,25 +12,66 @@ import { DatepickerComponent } from '../elements/datepicker/datepicker.component
 import { RemoteSelectParameters } from '../elements/remote-select/remote-select.parameters';
 import { RemoteSelectComponent } from '../elements/remote-select/remote-select.component';
 
+type TooltipPosition =
+  | 'left'
+  | 'right'
+  | 'above'
+  | 'below'
+  | 'before'
+  | 'after';
+
 export type BaseFormElementValidator = [ValidatorFn, string];
 
-export type BaseFormElement<T> = {
+export type BaseFormElementTooltip = {
+  disabled?: boolean;
+  hideDelay?: number;
+  message?: string;
+  withHtml?: boolean;
+  position?: TooltipPosition;
+  positionAtOrigin?: boolean;
+  showDelay?: number;
+  class?: any;
+  touchGestures?: 'auto' | 'off' | 'on';
+};
+
+export type DefaultGetOnExtra = {
+  [key: string]: unknown;
+};
+
+export type BaseFormElement<Params, GetOnExtra = DefaultGetOnExtra> = {
   disabled?: () => boolean | undefined;
   hidden?: () => boolean;
   value?: unknown;
   formControl?: FormControl;
   componentRef?: ComponentRef<BaseComponent>;
   validators?: BaseFormElementValidator[];
-  params?: T;
+  params?: Params;
+  tooltip?: BaseFormElementTooltip;
   styles?: Partial<CSSStyleDeclaration>;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  onClick?: () => void;
+  getOnExtra?: () => GetOnExtra;
 };
 
-export type FormElement<T = unknown> =
-  | (BaseFormElement<T> & { type: 'input'; params: InputParameters })
-  | (BaseFormElement<T> & { type: 'select'; params: SelectParameters })
-  | (BaseFormElement<T> & { type: 'button'; params: ButtonParameters })
-  | (BaseFormElement<T> & { type: 'datepicker'; params: DatepickerParameters })
-  | (BaseFormElement<T> & {
+export type FormElement<Params = unknown, GetOnExtra = DefaultGetOnExtra> =
+  | (BaseFormElement<Params, GetOnExtra> & {
+      type: 'input';
+      params: InputParameters;
+    })
+  | (BaseFormElement<Params, GetOnExtra> & {
+      type: 'select';
+      params: SelectParameters;
+    })
+  | (BaseFormElement<Params, GetOnExtra> & {
+      type: 'button';
+      params: ButtonParameters;
+    })
+  | (BaseFormElement<Params, GetOnExtra> & {
+      type: 'datepicker';
+      params: DatepickerParameters;
+    })
+  | (BaseFormElement<Params, GetOnExtra> & {
       type: 'remote-select';
       params: RemoteSelectParameters;
     });

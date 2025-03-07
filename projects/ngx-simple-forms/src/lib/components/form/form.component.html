@@ -1,9 +1,23 @@
-<form [formGroup]="group">
+<form [formGroup]="group" class="ngx-simple-forms__form">
   <ng-container *ngFor="let element of elements | keyvalue : originalOrderFn">
     <div
-      class="element-container"
+      class="ngx-simple-forms__form element-container"
       [style.display]="element.value.hidden?.() ? 'none' : 'inline-block'"
       [ngStyle]="element.value.styles"
+      [matTooltipDisabled]="element.value.tooltip?.disabled"
+      [matTooltipHideDelay]="9999999999999999"
+      [matTooltip]="element.value.tooltip?.message || ''"
+      [matTooltipPosition]="element.value.tooltip?.position || 'above'"
+      [matTooltipPositionAtOrigin]="element.value.tooltip?.positionAtOrigin"
+      [matTooltipShowDelay]="element.value.tooltip?.showDelay"
+      [matTooltipClass]="[
+        element.value.tooltip?.class ?? '',
+        'ngx-simple-forms__tooltip-default',
+        element.value.tooltip?.withHtml
+          ? 'ngx-simple-forms__tooltip-with-html'
+          : 'ngx-simple-forms__tooltip-no-html'
+      ]"
+      [matTooltipTouchGestures]="element.value.tooltip?.touchGestures || 'auto'"
     >
       <ng-container #dynamicComponentElementContainer></ng-container>
     </div>

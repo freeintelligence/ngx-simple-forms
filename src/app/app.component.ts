@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { TooltipComponent } from '@angular/material/tooltip';
 import {
   DatepickerParameters,
   DialogService,
@@ -147,6 +148,13 @@ export class AppComponent {
         handle: async ({ group }) => {
           group.reset();
         },
+      },
+      tooltip: {
+        message: `    <div style="width: 256px; background-color: red;">
+      <span>Codigo de ejemplo</span>
+    </div>`,
+        position: 'above',
+        withHtml: true,
       },
       disabled: () => this.elements.submit.params.loading,
     },

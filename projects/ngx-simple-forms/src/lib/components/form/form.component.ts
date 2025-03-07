@@ -5,21 +5,33 @@ import {
   QueryList,
   ViewChildren,
   ViewContainerRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import { FormElement, getFormElementComponentByType } from './form.elements';
 import { KeyValue, KeyValuePipe, NgFor, NgStyle } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { addGetterSetter, deepClone } from '../../utils';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { interceptMatTooltipsMessage } from '../../browser';
 
 @Component({
   selector: 'ngx-simple-forms-form',
   standalone: true,
-  imports: [NgFor, KeyValuePipe, ReactiveFormsModule, NgStyle],
+  imports: [
+    NgFor,
+    KeyValuePipe,
+    ReactiveFormsModule,
+    NgStyle,
+    MatTooltipModule,
+  ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class FormComponent {
-  @Input() checkTimer = 0;
+  private static IS_EXECUTED_TOOLTIP_INIT = false;
+
+  @Input() checkTimer = 512;
   @Input() elements: { [key: string]: FormElement } = {};
   @Input() cloneElements = false;
   @Input() defaultStyles: Partial<CSSStyleDeclaration> = {};
@@ -29,7 +41,9 @@ export class FormComponent {
 
   group: FormGroup = new FormGroup({});
 
-  constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef) {
+    this.executeTooltipInit();
+  }
 
   ngAfterViewInit(): void {
     this.cloneElementsIfNeeded();
@@ -43,6 +57,15 @@ export class FormComponent {
     this.createValueListener();
     this.createHiddenListenerDefaultFn();
     this.detectChanges();
+  }
+
+  private executeTooltipInit() {
+    if (FormComponent.IS_EXECUTED_TOOLTIP_INIT) {
+      return;
+    }
+
+    FormComponent.IS_EXECUTED_TOOLTIP_INIT = true;
+    interceptMatTooltipsMessage();
   }
 
   private cloneElementsIfNeeded() {
