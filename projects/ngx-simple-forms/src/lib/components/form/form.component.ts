@@ -259,6 +259,16 @@ export class FormComponent {
     }
   }
 
+  onMouseOver(event: Event, element: FormElement) {
+    if (typeof element.onMouseOver !== 'function') {
+      return;
+    }
+
+    const extra = element.getOnExtra?.();
+
+    element.onMouseOver?.(event, extra);
+  }
+
   originalOrderFn = (
     a: KeyValue<string, any>,
     b: KeyValue<string, any>

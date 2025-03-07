@@ -11,6 +11,11 @@ import {
   RemoteSelectParameters,
 } from 'ngx-simple-forms';
 
+type Valores = {
+  name: string;
+  description: string;
+};
+
 type MainFormElements = {
   name: FormElement<InputParameters>;
   lastname: FormElement<InputParameters>;
@@ -22,7 +27,7 @@ type MainFormElements = {
   openDialog: FormElement<ButtonParameters>;
   withTooltip1: FormElement<ButtonParameters>;
   withTooltip2: FormElement<ButtonParameters>;
-  withTooltip3: FormElement<ButtonParameters>;
+  withTooltip3: FormElement<ButtonParameters, Valores>;
 };
 @Component({
   selector: 'app-root',
@@ -304,8 +309,18 @@ export class AppComponent {
       <span>Codigo de ejemplo</span>
     </div>`,
         withHtml: true,
-        hideDelay: 0,
-        showDelay: 0,
+      },
+      onMouseOver: (event, extra) => {
+        console.log('Mouse over', extra);
+      },
+      onClick: (event) => {
+        console.log('Click');
+      },
+      getOnExtra: () => {
+        return {
+          name: 'Nombre',
+          description: 'Descripción',
+        };
       },
     },
   };

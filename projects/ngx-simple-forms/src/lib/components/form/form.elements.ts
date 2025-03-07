@@ -34,11 +34,7 @@ export type BaseFormElementTooltip = {
   touchGestures?: 'auto' | 'off' | 'on';
 };
 
-export type DefaultGetOnExtra = {
-  [key: string]: unknown;
-};
-
-export type BaseFormElement<Params, GetOnExtra = DefaultGetOnExtra> = {
+export type BaseFormElement<Params, GetOnExtra = any> = {
   disabled?: () => boolean | undefined;
   hidden?: () => boolean;
   value?: unknown;
@@ -48,7 +44,7 @@ export type BaseFormElement<Params, GetOnExtra = DefaultGetOnExtra> = {
   params?: Params;
   tooltip?: BaseFormElementTooltip;
   styles?: Partial<CSSStyleDeclaration>;
-  onMouseOver?: (event: Event) => void;
+  onMouseOver?: (event: Event, extra?: GetOnExtra) => void;
   onMouseOut?: (event: Event) => void;
   onClick?: (event: Event) => void;
   onKeyPress?: (event: KeyboardEvent) => void;
@@ -57,7 +53,7 @@ export type BaseFormElement<Params, GetOnExtra = DefaultGetOnExtra> = {
   getOnExtra?: () => GetOnExtra;
 };
 
-export type FormElement<Params = unknown, GetOnExtra = DefaultGetOnExtra> =
+export type FormElement<Params = unknown, GetOnExtra = any> =
   | (BaseFormElement<Params, GetOnExtra> & {
       type: 'input';
       params: InputParameters;

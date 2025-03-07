@@ -18,7 +18,7 @@
           : 'ngx-simple-forms__tooltip-no-html'
       ]"
       [matTooltipTouchGestures]="element.value.tooltip?.touchGestures || 'auto'"
-      (mouseover)="element.value.onMouseOver?.($event)"
+      (mouseover)="onMouseOver($event, element.value)"
       (mouseout)="element.value.onMouseOut?.($event)"
       (click)="element.value.onClick?.($event)"
       (keypress)="element.value.onKeyPress?.($event)"
