@@ -29,7 +29,7 @@ import { interceptMatTooltipsMessage } from '../../browser';
   encapsulation: ViewEncapsulation.None,
 })
 export class FormComponent {
-  private static IS_EXECUTED_TOOLTIP_INIT = true;
+  private static IS_EXECUTED_TOOLTIP_INIT = false;
 
   @Input() checkTimer = 512;
   @Input() elements: { [key: string]: FormElement } = {};
