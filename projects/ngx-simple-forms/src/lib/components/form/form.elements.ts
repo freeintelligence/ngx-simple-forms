@@ -36,7 +36,7 @@ export type BaseFormElementTooltip = {
 
 export type BaseFormElement<Params, GetOnExtra = any> = {
   disabled?: () => boolean | undefined;
-  hidden?: () => boolean;
+  hidden?: (extra?: GetOnExtra) => boolean;
   value?: unknown;
   formControl?: FormControl;
   componentRef?: ComponentRef<BaseComponent>;

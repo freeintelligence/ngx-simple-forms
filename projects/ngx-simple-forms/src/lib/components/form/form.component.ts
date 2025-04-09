@@ -269,6 +269,16 @@ export class FormComponent {
     element.onMouseOver?.(event, extra);
   }
 
+  hidden(element: FormElement) {
+    if (typeof element.hidden !== 'function') {
+      return false;
+    }
+
+    const extra = element.getOnExtra?.();
+
+    return element.hidden?.(extra);
+  }
+
   originalOrderFn = (
     a: KeyValue<string, any>,
     b: KeyValue<string, any>

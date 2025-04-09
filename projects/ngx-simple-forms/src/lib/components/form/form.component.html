@@ -2,7 +2,7 @@
   <ng-container *ngFor="let element of elements | keyvalue : originalOrderFn">
     <div
       class="ngx-simple-forms__form element-container"
-      [style.display]="element.value.hidden?.() ? 'none' : 'inline-block'"
+      [style.display]="hidden(element.value) ? 'none' : 'inline-block'"
       [ngStyle]="element.value.styles"
       [matTooltipDisabled]="element.value.tooltip?.disabled"
       [matTooltipHideDelay]="element.value.tooltip?.hideDelay"
